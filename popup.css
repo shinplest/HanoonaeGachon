@@ -13,5 +13,5 @@ ul {
 li {
     margin: 10px 10px 10px 10px;
     padding: 5px 5px 5px 5px;
-    float: left;
+    /* float: left; */
 }
