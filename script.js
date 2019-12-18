@@ -66,12 +66,11 @@ $(document).ready(function () {
 function createBox() {
     var contents = 
         "<div class='pages'>"
-        + "<a href='#' id = 'newLink' target='_blank'>"
+        + "<a href='#' target='_blank'>"
         + "<img src = 'images/icon.png' class = 'pageicons'>"
-        + "<p id = 'newPageName'>"
+        + "<p>"
         + "</p>"
         + "</a>"
-        + "<input type='text' id = 'nameInput' name='item' style='width:80px;'/>"
         + "</div>";
     return contents;
 }
@@ -80,6 +79,7 @@ function createItem() {
     //www.naver.com 올바른 형식으로 입력하지 않은 경우 제외해줌
     //사용자가 http://도 입력한 경우 자동으로 제외해주는 코드 만들기
     inputAddress = prompt("추가할 웹페이지의 주소를 입력하세요.");
+    inputName = prompt("추가할 페이지의 이름은?");
     $(createBox())
         .appendTo("#pageBoxWrap")
         .hover(
@@ -94,6 +94,7 @@ function createItem() {
         )
         .append("<div class='deleteBox'>[삭제]</div>")
         .find("a").prop("href", "http://"+inputAddress)
+        .find("p").html(inputName)
         .find(".deleteBox").click(function () {
             var valueCheck = false;
             $(this).parent().find('input').each(function () {
@@ -118,9 +119,6 @@ function submitItem() {
     if (!validateItem()) {
         return;
     }
-    inputName = $('#nameInput').val();
-    $("#nameInput").hide();
-    $("#newPageName").html(inputName);
    
 
     //모든 pages가져와서 객체로 저장.
