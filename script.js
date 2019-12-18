@@ -1,3 +1,4 @@
+
 //전역변수
 var modify = false; //현재 북마크를 수정할수있는 상태인지 아닌지 판단하는 변수
 
@@ -27,6 +28,23 @@ $(document).ready(function () {
     if (localStorage.getItem("Pages") != null) {
         Pages = JSON.parse(localStorage.getItem("Pages"));
         console.log(Pages.length + "페이지의 숫자");
+        //읽어온 페이지 길이만큼 읽어주면서 하나씩 만들어서 어펜드. 
+        for(var i = 0; i < Pages.length; i++){
+            $(createBox())
+            .appendTo("#pageBoxWrap")
+            .hover(
+                function () {
+                    $(this).css('backgroundColor', '#f9f9f5');
+                    $(this).find('.deleteBox').show();
+                },
+                function () {
+                    $(this).css('background', 'none');
+                    $(this).find('.deleteBox').hide();
+                }
+            )
+            .find("a").prop("href", "http://" + Pages[i].address)
+            .find("p").html(Pages[i].name);
+        }
     }
 
     $('#modify').click(function () {
