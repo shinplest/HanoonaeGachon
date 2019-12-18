@@ -2,10 +2,11 @@ var modify = false
 
 
 //페이지를 저장하는 객체 생성자
-var Page = function(name, address, imgsrc){
+var Page = function(name, address){
     this.name = name;
     this.address = address;
-    this.imgsrc = imgsrc;
+    //이미지 추가기능 나중에 삽입
+    //this.imgsrc = imgsrc;
 }
 
 $(document).ready(function () {
@@ -27,6 +28,7 @@ $(document).ready(function () {
             $('#modify').html('수정');
         }
     });
+    //추가 기능 눌렀을때
     $('#add').click(function () {
         createItem();
     });
@@ -65,12 +67,14 @@ function validateItem() {
 function createBox() {
     var contents = "<div class='pages'>"
         + "<img src = 'images/icon.png' class = 'pageicons'>"
-        + "<input type='text' name='item' style='width:200px;' class = 'address'/>"
+        + "<input type='text' name='item' style='width:100px;'/>"
         + "</div>";
     return contents;
 }
 
 function createItem() {
+    var name;
+    var address = prompt("추가할 웹페이지의 주소를 입력하세요.");
     $(createBox())
         .appendTo("#pageBoxWrap")
         .hover(
