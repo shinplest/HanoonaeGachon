@@ -61,6 +61,8 @@ function submitItem() {
     //console.log(Pages[0]);
     $("#nameInput").hide();
     $("#newPageName").html(inputName);
+    //사용자가 http://도 입력한 경우 자동으로 제외해주는 코드 만들기
+    $("#newLink").prop("href", "http://"+inputAddress);
     alert("등록되었습니다.");
 }
 
@@ -88,12 +90,12 @@ function validateItem() {
 function createBox() {
     var contents = 
         "<div class='pages'>"
-        // + "<a href='http://cyber.gachon.ac.kr/' target='_blank'>"
+        + "<a href='#' id = 'newLink' target='_blank'>"
         + "<img src = 'images/icon.png' class = 'pageicons'>"
-        + "<input type='text' id = 'nameInput' name='item' style='width:80px;'/>"
         + "<p id = 'newPageName'>"
         + "</p>"
-        // + "</a>"
+        + "</a>"
+        + "<input type='text' id = 'nameInput' name='item' style='width:80px;'/>"
         + "</div>";
     return contents;
 }
