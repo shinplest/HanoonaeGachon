@@ -19,6 +19,8 @@ var Page = function(name, address){
 
 //메인 jquery 함수
 $(document).ready(function () {
+    var loadedPages = JSON.parse(localStorage.getItem("Pages"));
+    console.log(loadedPages[0]);
     $('#modify').click(function () {
         
         //수정이 불가능한 상태에서 수정을 클릭한경우, 드래그 앤 드랍으로 정렬 순서를 바꿀 수 있게 한다.
@@ -58,11 +60,18 @@ function submitItem() {
 
     var inputPage = new Page(inputName, inputAddress);
     Pages.push(inputPage);
-    //console.log(Pages[0]);
+    console.log(Pages[0] +"페이지 추가는 성공적 ");
+    localStorage.setItem("Pages", JSON.stringify(Pages));
+
     $("#nameInput").hide();
     $("#newPageName").html(inputName);
+    //www.naver.com 올바른 형식으로 입력하지 않은 경우 제외해줌
     //사용자가 http://도 입력한 경우 자동으로 제외해주는 코드 만들기
     $("#newLink").prop("href", "http://"+inputAddress);
+
+    //모든 pages가져와서 객체로 저장.
+
+    
     alert("등록되었습니다.");
 }
 
