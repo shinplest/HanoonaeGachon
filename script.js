@@ -1,5 +1,13 @@
-var modify = false
+var modify = false;
 
+
+//전역변수
+
+//입력받은 페이지 이름과 주소를 저장한다. 
+var inputAddress = null;
+var inputName = null;
+
+var Pages = new Array();
 
 //페이지를 저장하는 객체 생성자
 var Page = function(name, address){
@@ -41,8 +49,11 @@ function submitItem() {
     if (!validateItem()) {
         return;
     }
+    inputName = $('#nameInput').val();
+    var inputPage = new Page(inputName, inputAddress);
+    Pages.push(inputPage);
+    console.log(Pages[0]);
     alert("등록되었습니다.");
-    $('.address').hide();
 }
 
 function validateItem() {
@@ -67,14 +78,13 @@ function validateItem() {
 function createBox() {
     var contents = "<div class='pages'>"
         + "<img src = 'images/icon.png' class = 'pageicons'>"
-        + "<input type='text' name='item' style='width:100px;'/>"
+        + "<input type='text' id = 'nameInput' name='item' style='width:100px;'/>"
         + "</div>";
     return contents;
 }
 
 function createItem() {
-    var name;
-    var address = prompt("추가할 웹페이지의 주소를 입력하세요.");
+    inputAddress = prompt("추가할 웹페이지의 주소를 입력하세요.");
     $(createBox())
         .appendTo("#pageBoxWrap")
         .hover(
@@ -96,6 +106,7 @@ function createItem() {
                 }
             });
 
+            //삭제하는 함수
             if (valueCheck) {
                 var delCheck = confirm('입력하신 내용이 있습니다.\n삭제하시겠습니까?');
             }
