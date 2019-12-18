@@ -1,5 +1,13 @@
 var modify = false
 
+
+//페이지를 저장하는 객체 생성자
+var Page = function(name, address, imgsrc){
+    this.name = name;
+    this.address = address;
+    this.imgsrc = imgsrc;
+}
+
 $(document).ready(function () {
     $('#modify').click(function () {
         $('.test').show();
