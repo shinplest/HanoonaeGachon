@@ -1,6 +1,7 @@
 
 //전역변수
 var modify = false; //현재 북마크를 수정할수있는 상태인지 아닌지 판단하는 변수
+var basePages = 3; //기본 페이지 개수
 
 //입력받은 페이지 이름과 주소를 저장한다. 
 var inputAddress = null;
@@ -29,7 +30,7 @@ $(document).ready(function () {
         Pages = JSON.parse(localStorage.getItem("Pages"));
         console.log(Pages.length + "페이지의 숫자");
         //읽어온 페이지 길이만큼 읽어주면서 하나씩 만들어서 어펜드. 
-        for(var i = 0; i < Pages.length; i++){
+        for(var i = basePages; i < Pages.length; i++){
             $(createBox())
             .appendTo("#pageBoxWrap")
             .hover(
