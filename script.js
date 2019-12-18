@@ -5,11 +5,10 @@ var modify = false; //현재 북마크를 수정할수있는 상태인지 아닌
 var inputAddress = null;
 var inputName = null;
 
-//페이지들의 배열 생성
-var Pages = new Array();
+
 
 //페이지 객체 생성자
-var Page = function(name, address){
+var Page = function (name, address) {
     this.name = name;
     this.address = address;
     //이미지 추가기능 나중에 삽입
@@ -25,13 +24,13 @@ $(document).ready(function () {
 
 
     //로컬저장소가 비어있지 않을 경우
-    if(localStorage.getItem("Pages") != null) {
+    if (localStorage.getItem("Pages") != null) {
         Pages = JSON.parse(localStorage.getItem("Pages"));
         console.log(Pages.length + "페이지의 숫자");
     }
 
     $('#modify').click(function () {
-        
+
         //수정이 불가능한 상태에서 수정을 클릭한경우, 드래그 앤 드랍으로 정렬 순서를 바꿀 수 있게 한다.
         if (modify == false) {
             $("#pageBoxWrap").sortable();
@@ -43,7 +42,7 @@ $(document).ready(function () {
             //이동할수 있는 것을 표현해 주기 위한 애니메이션 코드 추가 예정
 
 
-        //수정을 완료하면 다시 드래그 앤 드랍 기능을 꺼줌    
+            //수정을 완료하면 다시 드래그 앤 드랍 기능을 꺼줌    
         } else {
             modify = false;
             $("#pageBoxWrap").sortable("disable");
@@ -55,16 +54,12 @@ $(document).ready(function () {
     $('#add').click(function () {
         createItem();
     });
-    //제출 버튼 눌렀을 때
-    $('#submit').click(function () {
-        submitItem();
-    });
 })
 
 
 
 function createBox() {
-    var contents = 
+    var contents =
         "<div class='pages'>"
         + "<a href='#' target='_blank'>"
         + "<img src = 'images/icon.png' class = 'pageicons'>"
@@ -92,55 +87,37 @@ function createItem() {
                 $(this).find('.deleteBox').hide();
             }
         )
-        .append("<div class='deleteBox'>[삭제]</div>")
-        .find("a").prop("href", "http://"+inputAddress)
-        .find("p").html(inputName)
-        .find(".deleteBox").click(function () {
-            var valueCheck = false;
-            $(this).parent().find('input').each(function () {
-                if ($(this).attr("name") != "type" && $(this).val() != '') {
-                    valueCheck = true;
-                }
-            });
+        .find("a").prop("href", "http://" + inputAddress)
+        .find("p").html(inputName);
 
-            //삭제하는 함수
-            if (valueCheck) {
-                var delCheck = confirm('입력하신 내용이 있습니다.\n삭제하시겠습니까?');
-            }
-            if (!valueCheck || delCheck == true) {
-                $(this).parent().remove();
-            }
-        });
-}
-
-
-
-function submitItem() {
-    if (!validateItem()) {
-        return;
-    }
-   
-
+        //삭제부분은 나중에 다른곳에서 구현해볼 예정
+        // .append("<button class='deleteBox'>삭제</button>")
+        // .find(".deleteBox").click(function () {
+        //     var delCheck = confirm('삭제하시겠습니까?');
+        //     if (delCheck == true) {
+        //         $(this).parent().remove();
+        //     }
+        // })
     //모든 pages가져와서 객체로 저장.
     var pages = $(".pages");
     var tempName = null;
     var tempAddress = null;
 
     //한바퀴돌때마다 새로 지워주고 다시써준다
-    localStorage.clear();
-    for(var i = 0; i < pages.length; i++){
+    var Pages = new Array();
+
+    for (var i = 0; i < pages.length; i++) {
         tempName = $(pages[i]).find("p").text();
-        tempAddress = $(pages[i]).find("a").attr("href"); 
+        tempAddress = $(pages[i]).find("a").attr("href");
         var pushPage = new Page(tempName, tempAddress);
         Pages.push(pushPage);
-        console.log("실행"+ pages[i]);
+        console.log(i);
     }
-    //Pages.push(inputPage);
+    localStorage.clear();
     localStorage.setItem("Pages", JSON.stringify(Pages));
-
-
     alert("등록되었습니다.");
 }
+
 
 function validateItem() {
     var items = $("input[type='text'][name='item']");
