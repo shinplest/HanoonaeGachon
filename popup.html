@@ -5,7 +5,6 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="popup.css">
-    <script src="script.js"></script>
     <script src="jquery/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="jquery/jquery-ui.min.js"></script>
     <script type="text/javascript" src="script.js"></script>
@@ -17,8 +16,10 @@
     <div>
         <div style="float:left;width:100px;">아이템 추가 : </div>
         <div style="clar:both;">
-            <input type="button" id="addItem" value="추가" onclick="createItem();" />
-            <input type="button" id="submitItem" value="제출" onclick="submitItem();" />
+           <!-- // <input type="button" id="addItem" value="추가" onclick="createItem();" /> -->
+            <button id = "add">추가</button>
+            <!-- <input type="button" id="submitItem" value="제출" onclick="submitItem();" /> -->
+            <button id = "submit">제출</button>
             <button id="modify" class="basicButtons">수정</button>
         </div>
     </div>

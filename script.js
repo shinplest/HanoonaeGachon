@@ -1,5 +1,32 @@
 var modify = false
 
+$(document).ready(function () {
+    $('#modify').click(function () {
+        $('.test').show();
+        $("#pageBoxWrap").sortable();
+        $("#pageBoxWrap").disableSelection();
+        if (modify == false) {
+            $("#pageBoxWrap").sortable();
+            $("#pageBoxWrap").sortable("option", "disabled", false); //다시 바꿀수 있게 하기 위한 코드
+            $("#pageBoxWrap").disableSelection();
+            $('#modify').html('완료');
+            modify = true;
+
+            //이동할수 있는 것을 표현해 주기 위한 애니메이션 코드
+        } else {
+            modify = false;
+            $("#pageBoxWrap").sortable("disable");
+            $('#modify').html('수정');
+        }
+    });
+    $('#add').click(function () {
+        createItem();
+    });
+    $('#submit').click(function () {
+        submitItem();
+    });
+})
+
 function submitItem() {
     if (!validateItem()) {
         return;
@@ -67,28 +94,3 @@ function createItem() {
         });
 }
 
-
-$(function () {
-
-    $('#modify').click(function () {
-        $('.test').show();
-        $("#pageBoxWrap").sortable();
-        $("#pageBoxWrap").disableSelection();
-        if (modify == false) {
-            $("#pageBoxWrap").sortable();
-            $("#pageBoxWrap").sortable("option", "disabled", false); //다시 바꿀수 있게 하기 위한 코드
-            $("#pageBoxWrap").disableSelection();
-            $('#modify').html('완료');
-            modify = true;
-
-            //이동할수 있는 것을 표현해 주기 위한 애니메이션 코드
-     
-
-        } else {
-            modify = false;
-            $("#pageBoxWrap").sortable("disable");
-            $('#modify').html('수정');
-        }
-    });
-
-});
