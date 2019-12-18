@@ -19,8 +19,17 @@ var Page = function(name, address){
 
 //메인 jquery 함수
 $(document).ready(function () {
-    var loadedPages = JSON.parse(localStorage.getItem("Pages"));
-    console.log(loadedPages[0]);
+
+    //로컬저장소가 비어있을 경우 
+    //그냥 기본 그대로 해주면 됨. 
+
+
+    //로컬저장소가 비어있지 않을 경우
+    if(localStorage.getItem("Pages") != null) {
+        Pages = JSON.parse(localStorage.getItem("Pages"));
+        console.log(Pages.length + "페이지의 숫자");
+    }
+
     $('#modify').click(function () {
         
         //수정이 불가능한 상태에서 수정을 클릭한경우, 드래그 앤 드랍으로 정렬 순서를 바꿀 수 있게 한다.
@@ -58,10 +67,8 @@ function submitItem() {
     }
     inputName = $('#nameInput').val();
 
-    var inputPage = new Page(inputName, inputAddress);
-    Pages.push(inputPage);
-    console.log(Pages[0] +"페이지 추가는 성공적 ");
-    localStorage.setItem("Pages", JSON.stringify(Pages));
+   //var inputPage = new Page(inputName, inputAddress);
+
 
     $("#nameInput").hide();
     $("#newPageName").html(inputName);
@@ -70,8 +77,23 @@ function submitItem() {
     $("#newLink").prop("href", "http://"+inputAddress);
 
     //모든 pages가져와서 객체로 저장.
+    var pages = $(".pages");
+    var tempName = null;
+    var tempAddress = null;
 
-    
+    //한바퀴돌때마다 새로 지워주고 다시써준다
+    localStorage.clear();
+    for(var i = 0; i < pages.length; i++){
+        tempName = $(pages[i]).find("p").text();
+        tempAddress = $(pages[i]).find("a").attr("href"); 
+        var pushPage = new Page(tempName, tempAddress);
+        Pages.push(pushPage);
+        console.log("실행"+ pages[i]);
+    }
+    //Pages.push(inputPage);
+    localStorage.setItem("Pages", JSON.stringify(Pages));
+
+
     alert("등록되었습니다.");
 }
 
@@ -138,7 +160,6 @@ function createItem() {
             }
             if (!valueCheck || delCheck == true) {
                 $(this).parent().remove();
-                reorder();
             }
         });
 }
