@@ -14,19 +14,32 @@
 
 <body>
     <h1>한눈에 가천</h1>
-    <ul id="sortable">
-        <li><a href="http://www.gachon.ac.kr/" target="_blank"><img src="images/icon.png" class="pageicons">가천대학교</a>
-        </li>
-        <li><a href="http://cyber.gachon.ac.kr/" target="_blank"><img src="images/icon.png" class="pageicons">사이버
-                캠퍼스</a></li>
-
-        <li><a href="https://wind.gachon.ac.kr/" target="_blank"><img src="images/icon.png" class="pageicons">wind</a></li>
-        <li><img src="images/icon.png" class="pageicons">가천대학교</li>
-        <li><img src="images/icon.png" class="pageicons">가천대학교</li>
-    </ul>
-
-    <button id="modify" class="basicButtons">수정</button>
-
+    <div>
+        <div style="float:left;width:100px;">아이템 추가 : </div>
+        <div style="clar:both;">
+            <input type="button" id="addItem" value="추가" onclick="createItem();" />
+            <input type="button" id="submitItem" value="제출" onclick="submitItem();" />
+            <button id="modify" class="basicButtons">수정</button>
+        </div>
+    </div>
+    <br />
+    <div id="pageBoxWrap">
+        <div class="pages">
+            <a href="http://www.gachon.ac.kr/" target="_blank"><img src="images/icon.png" class="pageicons">
+                <p>가천대학교</p>
+            </a>
+        </div>
+        <div class="pages">
+            <a href="http://cyber.gachon.ac.kr/" target="_blank"><img src="images/icon.png" class="pageicons">
+                <p>사이버 캠퍼스</p>
+            </a>
+        </div>
+        <div class="pages">
+            <a href="https://wind.gachon.ac.kr/" target="_blank"><img src="images/icon.png" class="pageicons">
+                <p>wind</p>
+            </a>
+        </div>
+    </div>
 </body>
 
 </html>
