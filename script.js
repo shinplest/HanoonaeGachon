@@ -42,7 +42,7 @@ $(document).ready(function () {
                     $(this).find('.deleteBox').hide();
                 }
             )
-            .find("a").prop("href", "http://" + Pages[i].address)
+            .find("a").prop("href",  Pages[i].address)
             .find("p").html(Pages[i].name);
         }
     }
