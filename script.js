@@ -93,6 +93,10 @@ function createItem() {
     //www.naver.com 올바른 형식으로 입력하지 않은 경우 제외해줌
     //사용자가 http://도 입력한 경우 자동으로 제외해주는 코드 만들기
     inputAddress = prompt("추가할 웹페이지의 주소를 입력하세요.");
+    //https:// 있으면 자동으로 제외해줌. 
+    if(inputAddress.indexOf("https://") != -1){
+        inputAddress = inputAddress.replace("https://", "");
+    }
     if(inputAddress == null) return;
     inputName = prompt("추가할 페이지의 이름은?");
     if(inputName == null) return;
@@ -108,7 +112,7 @@ function createItem() {
                 $(this).find('.deleteBox').hide();
             }
         )
-        .find("a").prop("href", "http://" + inputAddress)
+        .find("a").prop("href", "https://" + inputAddress)
         .find("p").html(inputName);
 
         //삭제부분은 나중에 다른곳에서 구현해볼 예정
