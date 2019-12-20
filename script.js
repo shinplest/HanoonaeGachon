@@ -1,6 +1,7 @@
 
 //전역변수
 var modify = false; //현재 북마크를 수정할수있는 상태인지 아닌지 판단하는 변수
+var del = false; //현재 북마크를 삭제하고 있는 상태인지 아닌지 판단하는 변수
 var basePages = 3; //기본 페이지 개수
 
 //입력받은 페이지 이름과 주소를 저장한다. 
@@ -72,6 +73,18 @@ $(document).ready(function () {
     //추가 버튼 눌렀을 때
     $('#add').click(function () {
         createItem();
+    });
+    $('#delete').click(function () {
+        if(del == false){
+            $('#delete').html("삭제 완료");
+            alert("이제 삭제하고 싶은 즐겨찾기를 누르세요. ");
+            del = true;
+        }
+        else{
+            del = false;
+            $('#delete').html("삭제");
+        }
+      
     });
 })
 
