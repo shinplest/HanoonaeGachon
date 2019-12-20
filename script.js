@@ -4,7 +4,7 @@ var modify = false; //현재 북마크를 수정할수있는 상태인지 아닌
 var basePages = 3; //기본 페이지 개수
 
 //입력받은 페이지 이름과 주소를 저장한다. 
-var inputAddress = null;
+var inputAddress = "naver.com";
 var inputName = null;
 
 
@@ -92,55 +92,62 @@ function createBox() {
 function createItem() {
     //www.naver.com 올바른 형식으로 입력하지 않은 경우 제외해줌
     //사용자가 http://도 입력한 경우 자동으로 제외해주는 코드 만들기
-    inputAddress = prompt("추가할 웹페이지의 주소를 입력하세요.");
-    //https:// 있으면 자동으로 제외해줌. 
-    if(inputAddress.indexOf("https://") != -1){
-        inputAddress = inputAddress.replace("https://", "");
-    }
-    if(inputAddress == null) return;
-    inputName = prompt("추가할 페이지의 이름은?");
-    if(inputName == null) return;
-    $(createBox())
-        .appendTo("#pageBoxWrap")
-        .hover(
-            function () {
-                $(this).css('backgroundColor', '#f9f9f5');
-                $(this).find('.deleteBox').show();
-            },
-            function () {
-                $(this).css('background', 'none');
-                $(this).find('.deleteBox').hide();
-            }
-        )
-        .find("a").prop("href", "https://" + inputAddress)
-        .find("p").html(inputName);
 
-        //삭제부분은 나중에 다른곳에서 구현해볼 예정
-        // .append("<button class='deleteBox'>삭제</button>")
-        // .find(".deleteBox").click(function () {
-        //     var delCheck = confirm('삭제하시겠습니까?');
-        //     if (delCheck == true) {
-        //         $(this).parent().remove();
-        //     }
-        // })
-    //모든 pages가져와서 객체로 저장.
-    var pages = $(".pages");
-    var tempName = null;
-    var tempAddress = null;
-
-    //한바퀴돌때마다 새로 지워주고 다시써준다
-    var Pages = new Array();
-
-    for (var i = 0; i < pages.length; i++) {
-        tempName = $(pages[i]).find("p").text();
-        tempAddress = $(pages[i]).find("a").attr("href");
-        var pushPage = new Page(tempName, tempAddress);
-        Pages.push(pushPage);
-        console.log(i);
-    }
-    localStorage.clear();
-    localStorage.setItem("Pages", JSON.stringify(Pages));
-    alert("등록되었습니다.");
+   
+    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+        var url = tabs[0].url;
+        console.log(url);
+        inputAddress = prompt("추가할 웹페이지의 주소를 입력하세요.", url);//inputAddress = prompt("추가할 웹페이지의 주소를 입력하세요.");
+        //https:// 있으면 자동으로 제외해줌. 
+    
+        if(inputAddress.indexOf("https://") != -1){
+            inputAddress = inputAddress.replace("https://", "");
+        }
+        if(inputAddress == null) return;
+        inputName = prompt("추가할 페이지의 이름은?");
+        if(inputName == null) return;
+        $(createBox())
+            .appendTo("#pageBoxWrap")
+            .hover(
+                function () {
+                    $(this).css('backgroundColor', '#f9f9f5');
+                    $(this).find('.deleteBox').show();
+                },
+                function () {
+                    $(this).css('background', 'none');
+                    $(this).find('.deleteBox').hide();
+                }
+            )
+            .find("a").prop("href", "https://" + inputAddress)
+            .find("p").html(inputName);
+    
+            //삭제부분은 나중에 다른곳에서 구현해볼 예정
+            // .append("<button class='deleteBox'>삭제</button>")
+            // .find(".deleteBox").click(function () {
+            //     var delCheck = confirm('삭제하시겠습니까?');
+            //     if (delCheck == true) {
+            //         $(this).parent().remove();
+            //     }
+            // })
+        //모든 pages가져와서 객체로 저장.
+        var pages = $(".pages");
+        var tempName = null;
+        var tempAddress = null;
+    
+        //한바퀴돌때마다 새로 지워주고 다시써준다
+        var Pages = new Array();
+    
+        for (var i = 0; i < pages.length; i++) {
+            tempName = $(pages[i]).find("p").text();
+            tempAddress = $(pages[i]).find("a").attr("href");
+            var pushPage = new Page(tempName, tempAddress);
+            Pages.push(pushPage);
+            console.log(i);
+        }
+        localStorage.clear();
+        localStorage.setItem("Pages", JSON.stringify(Pages));
+        alert("등록되었습니다.");
+    });
 }
 
 
