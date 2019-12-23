@@ -1,3 +1,5 @@
+//control k + f 코드 자동정렬
+
 
 //전역변수
 var modify = false; //현재 북마크를 수정할수있는 상태인지 아닌지 판단하는 변수
@@ -31,21 +33,21 @@ $(document).ready(function () {
         Pages = JSON.parse(localStorage.getItem("Pages"));
         console.log(Pages.length + "페이지의 숫자");
         //읽어온 페이지 길이만큼 읽어주면서 하나씩 만들어서 어펜드. 
-        for(var i = basePages; i < Pages.length; i++){
+        for (var i = basePages; i < Pages.length; i++) {
             $(createBox())
-            .appendTo("#pageBoxWrap")
-            .hover(
-                function () {
-                    $(this).css('backgroundColor', '#f9f9f5');
-                    $(this).find('.deleteBox').show();
-                },
-                function () {
-                    $(this).css('background', 'none');
-                    $(this).find('.deleteBox').hide();
-                }
-            )
-            .find("a").prop("href",  Pages[i].address)
-            .find("p").html(Pages[i].name);
+                .appendTo("#pageBoxWrap")
+                .hover(
+                    function () {
+                        $(this).css('backgroundColor', '#f9f9f5');
+                        $(this).find('.deleteBox').show();
+                    },
+                    function () {
+                        $(this).css('background', 'none');
+                        $(this).find('.deleteBox').hide();
+                    }
+                )
+                .find("a").prop("href", Pages[i].address)
+                .find("p").html(Pages[i].name);
         }
     }
 
@@ -75,32 +77,53 @@ $(document).ready(function () {
         createItem();
     });
     $('#delete').click(function () {
-        if(del == false){
-            $('#delete').html("삭제 완료");
-            //클릭 비활성화
-            $('.pages').click(function(){return false});
-            //마우스 올릴시 삭제 버튼 추가
-            $('.pages').mouseenter(function(){
-                var testbutton = "<button class = 'delButton'>test</button>";
-                $(testbutton).appendTo($(this));
-            });
-            //마우스 올릴기 삭제버튼 제거
-            $('.pages').mouseleave(function(){
-                $(this).find('.delButton').remove();
-            });
-            alert("이제 삭제하고 싶은 즐겨찾기를 누르세요. ");
-            del = true;
-        }
-        else{
-            del = false;
-            //클릭 재활성화
-            $('.pages').unbind('click');
-            $('#delete').html("삭제");
-        }
-      
+        deletePage();
+
     });
 })
 
+
+//페이지 삭제 관련함수
+function deletePage() {
+    if (del == false) {
+        $('#delete').html("삭제 완료");
+        //클릭 비활성화
+        $('.pages').click(function () { return false });
+        addAndRemoveDelButton();
+        alert("이제 삭제하고 싶은 즐겨찾기를 누르세요. ");
+        //삭제 이벤트
+        del = true;
+    }
+    else {
+        del = false;
+        //클릭 재활성화
+        $('.pages').unbind('click');
+        $('#delete').html("삭제");
+    }
+
+}
+
+//삭제버튼을 생성하고 지우고 페이지 지우는 이벤트 처리
+function addAndRemoveDelButton() {
+    //마우스 올릴시 삭제 버튼 추가
+    $('.pages').mouseenter(function () {
+        var testbutton = "<button class = 'delButton'>삭제</button>";
+        $(this).closest("div").css('backgroundColor', '#f9f9f5');
+
+        $(testbutton).appendTo($(this));
+        $('.delButton').click(function () {
+            $(this).closest("div").remove();
+            //삭제 후 변경사항 저장. 
+            savePagesToLocalStorage();
+            alert("삭제되었습니다.");
+        });
+    });
+    //마우스 올릴시 삭제버튼 제거
+    $('.pages').mouseleave(function () {
+        $(this).closest("div").css('background', 'none');
+        $(this).find('.delButton').remove();
+    });
+}
 
 
 function createBox() {
@@ -115,63 +138,46 @@ function createBox() {
     return contents;
 }
 
-function createItem() {
-    //www.naver.com 올바른 형식으로 입력하지 않은 경우 제외해줌
-    //사용자가 http://도 입력한 경우 자동으로 제외해주는 코드 만들기
+function savePagesToLocalStorage() {
+    //모든 pages가져와서 객체로 저장.
+    var pages = $(".pages");
+    var tempName = null;
+    var tempAddress = null;
 
-   
+    //배열에 현재 페이지 정보 저장
+    var Pages = new Array();
+    for (var i = 0; i < pages.length; i++) {
+        tempName = $(pages[i]).find("p").text();
+        tempAddress = $(pages[i]).find("a").attr("href");
+        var pushPage = new Page(tempName, tempAddress);
+        Pages.push(pushPage);
+        console.log(i);
+    }
+    //로컬스토리지 초기화후 페이지 정보 저장 
+    localStorage.clear();
+    localStorage.setItem("Pages", JSON.stringify(Pages));
+}
+
+function createItem() {
+
+    //크롬 쿼리로 현재 열려있는 탭 주소 가져옴. 쿼리 밖으로 가면 변수 저장이 안되어 안에서 구현해야 함.
     chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
         var url = tabs[0].url;
         console.log(url);
-        inputAddress = prompt("추가할 웹페이지의 주소를 입력하세요.", url);//inputAddress = prompt("추가할 웹페이지의 주소를 입력하세요.");
+        //현재 웹페이지 주소를 디폴트로 가져옴. 
+        inputAddress = prompt("추가할 웹페이지의 주소를 입력하세요.", url);
         //https:// 있으면 자동으로 제외해줌. 
-    
-        if(inputAddress.indexOf("https://") != -1){
+        if (inputAddress.indexOf("https://") != -1) {
             inputAddress = inputAddress.replace("https://", "");
         }
-        if(inputAddress == null) return;
+        if (inputAddress == null) return;
         inputName = prompt("추가할 페이지의 이름은?");
-        if(inputName == null) return;
+        if (inputName == null) return;
         $(createBox())
             .appendTo("#pageBoxWrap")
-            .hover(
-                function () {
-                    $(this).css('backgroundColor', '#f9f9f5');
-                    $(this).find('.deleteBox').show();
-                },
-                function () {
-                    $(this).css('background', 'none');
-                    $(this).find('.deleteBox').hide();
-                }
-            )
             .find("a").prop("href", "https://" + inputAddress)
             .find("p").html(inputName);
-    
-            //삭제부분은 나중에 다른곳에서 구현해볼 예정
-            // .append("<button class='deleteBox'>삭제</button>")
-            // .find(".deleteBox").click(function () {
-            //     var delCheck = confirm('삭제하시겠습니까?');
-            //     if (delCheck == true) {
-            //         $(this).parent().remove();
-            //     }
-            // })
-        //모든 pages가져와서 객체로 저장.
-        var pages = $(".pages");
-        var tempName = null;
-        var tempAddress = null;
-    
-        //한바퀴돌때마다 새로 지워주고 다시써준다
-        var Pages = new Array();
-    
-        for (var i = 0; i < pages.length; i++) {
-            tempName = $(pages[i]).find("p").text();
-            tempAddress = $(pages[i]).find("a").attr("href");
-            var pushPage = new Page(tempName, tempAddress);
-            Pages.push(pushPage);
-            console.log(i);
-        }
-        localStorage.clear();
-        localStorage.setItem("Pages", JSON.stringify(Pages));
+        savePagesToLocalStorage();
         alert("등록되었습니다.");
     });
 }
