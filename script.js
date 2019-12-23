@@ -77,11 +77,24 @@ $(document).ready(function () {
     $('#delete').click(function () {
         if(del == false){
             $('#delete').html("삭제 완료");
+            //클릭 비활성화
+            $('.pages').click(function(){return false});
+            //마우스 올릴시 삭제 버튼 추가
+            $('.pages').mouseenter(function(){
+                var testbutton = "<button class = 'delButton'>test</button>";
+                $(testbutton).appendTo($(this));
+            });
+            //마우스 올릴기 삭제버튼 제거
+            $('.pages').mouseleave(function(){
+                $(this).find('.delButton').remove();
+            });
             alert("이제 삭제하고 싶은 즐겨찾기를 누르세요. ");
             del = true;
         }
         else{
             del = false;
+            //클릭 재활성화
+            $('.pages').unbind('click');
             $('#delete').html("삭제");
         }
       
