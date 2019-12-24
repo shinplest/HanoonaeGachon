@@ -84,6 +84,8 @@ $(document).ready(function () {
 
 
 //페이지 삭제 관련함수
+
+//삭제완료 누르고도 삭제가 계속 나타나는 버그 해결방안 찾기 
 function deletePage() {
     if (del == false) {
         $('#delete').html("삭제 완료");
@@ -95,10 +97,10 @@ function deletePage() {
         del = true;
     }
     else {
-        del = false;
         //클릭 재활성화
         $('.pages').unbind('click');
         $('#delete').html("삭제");
+        del = false;
     }
 
 }
@@ -109,8 +111,9 @@ function addAndRemoveDelButton() {
     $('.pages').mouseenter(function () {
         var testbutton = "<button class = 'delButton'>삭제</button>";
         $(this).closest("div").css('backgroundColor', '#f9f9f5');
-
         $(testbutton).appendTo($(this));
+
+        //버튼을 누를시 삭제를 해준다
         $('.delButton').click(function () {
             $(this).closest("div").remove();
             //삭제 후 변경사항 저장. 
@@ -118,7 +121,7 @@ function addAndRemoveDelButton() {
             alert("삭제되었습니다.");
         });
     });
-    //마우스 올릴시 삭제버튼 제거
+    //마우스 나갈시 삭제버튼 제거
     $('.pages').mouseleave(function () {
         $(this).closest("div").css('background', 'none');
         $(this).find('.delButton').remove();
