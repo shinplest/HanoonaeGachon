@@ -162,8 +162,10 @@ function createItem() {
 
     //크롬 쿼리로 현재 열려있는 탭 주소 가져옴. 쿼리 밖으로 가면 변수 저장이 안되어 안에서 구현해야 함.
     chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+        //console.log(tabs);
         var url = tabs[0].url;
-        console.log(url);
+        // var favcon = $('link[rel="shortcut icon"]').attr('href');
+        // console.log(favcon);
         //현재 웹페이지 주소를 디폴트로 가져옴. 
         inputAddress = prompt("추가할 웹페이지의 주소를 입력하세요.", url);
         //https:// 있으면 자동으로 제외해줌. 
