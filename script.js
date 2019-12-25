@@ -175,12 +175,15 @@ function createItem() {
         if (inputAddress.indexOf("https://") != -1) {
             inputAddress = inputAddress.replace("https://", "");
         }
+        if (inputAddress.indexOf("http://") != -1) {
+            inputAddress = inputAddress.replace("http://", "");
+        }
         if (inputAddress == null) return;
         inputName = prompt("추가할 페이지의 이름은?");
         if (inputName == null) return;
         $(createBox())
             .appendTo("#pageBoxWrap")
-            .find("a").prop("href", "https://" + inputAddress)
+            .find("a").prop("href",  "http://" + inputAddress)
             .find("p").html(inputName);
         savePagesToLocalStorage();
         alert("등록되었습니다.");
