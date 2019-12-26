@@ -3,7 +3,7 @@ Hanoonae Gachon
 
 가천대생이 필요한 모든 웹페이지를 한번에 모아주는 크롬 익스텐션(확장프로그램) 입니다. 
 
-<img src="./SampleImages/HannoonaeGachonSampleImage.png" width = "50%">
+<img src="./SampleImages/sample.png" width = "50%">
 
 
 # License
