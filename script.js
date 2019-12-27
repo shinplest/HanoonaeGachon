@@ -81,7 +81,6 @@ $(document).ready(function () {
     });
     $('#delete').click(function () {
         deletePage();
-
     });
 })
 
@@ -176,12 +175,6 @@ function getTabData(callback){
 function createItem() {
     getTabData(function(url){
         console.log(url)
-    });
-
-    //크롬 쿼리로 현재 열려있는 탭 주소 가져옴. 쿼리 밖으로 가면 변수 저장이 안되어 안에서 구현해야 함.
-    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
-        var url = tabs[0].url;
-       
         var imgUrl = "chrome://favicon/" + url;
         console.log(imgUrl);
         // var favcon = $('link[rel="shortcut icon"]').attr('href');
