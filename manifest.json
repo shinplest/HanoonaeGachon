@@ -11,7 +11,7 @@
     },
 
     "permissions": [ 
-        "tabs"
+        "tabs",
+        "chrome://favicon/"
     ]
-    
   }

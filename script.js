@@ -131,11 +131,7 @@ function addAndRemoveDelButton() {
     });
 }
 
-//URL대표 이미지 받아오고 리턴하는 함수 (제작중)
-function getUrlImgae(){
-    var urlimg;
-    return urlimg;
-}
+
 function createBox(imgaddress) {
     var contents =
         "<div class='pages'>"
@@ -171,13 +167,23 @@ function savePagesToLocalStorage() {
     localStorage.setItem("Pages", JSON.stringify(Pages));
 }
 
+function getTabData(callback){
+    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs){
+        callback(tabs[0].url);
+    });
+}
+
 function createItem() {
+    getTabData(function(url){
+        console.log(url)
+    });
 
     //크롬 쿼리로 현재 열려있는 탭 주소 가져옴. 쿼리 밖으로 가면 변수 저장이 안되어 안에서 구현해야 함.
     chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
-        //console.log(tabs);
         var url = tabs[0].url;
-        var urlimg = "https://shinplest.me/img/sojuletter.png";
+       
+        var imgUrl = "chrome://favicon/" + url;
+        console.log(imgUrl);
         // var favcon = $('link[rel="shortcut icon"]').attr('href');
         // console.log(favcon);
         //현재 웹페이지 주소를 디폴트로 가져옴. 
@@ -192,7 +198,7 @@ function createItem() {
         if (inputAddress == null) return;
         inputName = prompt("추가할 페이지의 이름은?");
         if (inputName == null) return;
-        $(createBox(urlimg))
+        $(createBox(imgUrl))
             .appendTo("#pageBoxWrap")
             .find("a").prop("href",  "http://" + inputAddress)
             .find("p").html(inputName);
