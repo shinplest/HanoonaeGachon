@@ -13,11 +13,10 @@ var inputName = null;
 
 
 //페이지 객체 생성자
-var Page = function (name, address) {
+var Page = function (name, address, imgUrl) {
     this.name = name;
     this.address = address;
-    //이미지 추가기능 나중에 삽입
-    //this.imgsrc = imgsrc;
+    this.imgUrl = imgUrl;
 }
 
 
@@ -31,23 +30,27 @@ $(document).ready(function () {
     //로컬저장소가 비어있지 않을 경우
     if (localStorage.getItem("Pages") != null) {
         Pages = JSON.parse(localStorage.getItem("Pages"));
-        console.log(Pages.length + "페이지의 숫자");
+
+
+        //현재 배열을 제대로 읽어오는지 확인하는 코드
+        console.log(Pages);
         //읽어온 페이지 길이만큼 읽어주면서 하나씩 만들어서 어펜드. 
         for (var i = basePages; i < Pages.length; i++) {
+          
             $(createBox())
                 .appendTo("#pageBoxWrap")
+                //호버 액션 현재 마우스 위치 배경색 바꿔줌
                 .hover(
                     function () {
                         $(this).css('backgroundColor', '#f9f9f5');
-                        $(this).find('.deleteBox').show();
                     },
                     function () {
                         $(this).css('background', 'none');
-                        $(this).find('.deleteBox').hide();
                     }
                 )
                 .find("a").prop("href", Pages[i].address)
-                .find("p").html(Pages[i].name);
+                .find("img").attr("src", Pages[i].imgUrl)
+                .parent().find("p").html(Pages[i].name) 
         }
     }
 
@@ -128,12 +131,18 @@ function addAndRemoveDelButton() {
     });
 }
 
-
-function createBox() {
+//URL대표 이미지 받아오고 리턴하는 함수 (제작중)
+function getUrlImgae(){
+    var urlimg;
+    return urlimg;
+}
+function createBox(imgaddress) {
     var contents =
         "<div class='pages'>"
         + "<a href='#' target='_blank'>"
-        + "<img src = 'images/icon.png' class = 'pageicons'>"
+        + "<img src = '" 
+        + imgaddress
+        + "' class = 'pageicons'>"
         + "<p>"
         + "</p>"
         + "</a>"
@@ -146,15 +155,16 @@ function savePagesToLocalStorage() {
     var pages = $(".pages");
     var tempName = null;
     var tempAddress = null;
+    var tempImgUrl = null;
 
     //배열에 현재 페이지 정보 저장
     var Pages = new Array();
     for (var i = 0; i < pages.length; i++) {
         tempName = $(pages[i]).find("p").text();
         tempAddress = $(pages[i]).find("a").attr("href");
-        var pushPage = new Page(tempName, tempAddress);
+        tempImgUrl = $(pages[i]).find("img").attr("src");
+        var pushPage = new Page(tempName, tempAddress, tempImgUrl);
         Pages.push(pushPage);
-        console.log(i);
     }
     //로컬스토리지 초기화후 페이지 정보 저장 
     localStorage.clear();
@@ -167,6 +177,7 @@ function createItem() {
     chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
         //console.log(tabs);
         var url = tabs[0].url;
+        var urlimg = "https://shinplest.me/img/sojuletter.png";
         // var favcon = $('link[rel="shortcut icon"]').attr('href');
         // console.log(favcon);
         //현재 웹페이지 주소를 디폴트로 가져옴. 
@@ -181,7 +192,7 @@ function createItem() {
         if (inputAddress == null) return;
         inputName = prompt("추가할 페이지의 이름은?");
         if (inputName == null) return;
-        $(createBox())
+        $(createBox(urlimg))
             .appendTo("#pageBoxWrap")
             .find("a").prop("href",  "http://" + inputAddress)
             .find("p").html(inputName);
