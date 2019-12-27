@@ -137,7 +137,7 @@ function createBox(imgaddress) {
         + "<a href='#' target='_blank'>"
         + "<img src = '" 
         + imgaddress
-        + "' class = 'pageicons'>"
+        + "' alt='./images/icon.png' class = 'pageicons'>"
         + "<p>"
         + "</p>"
         + "</a>"
@@ -168,6 +168,7 @@ function savePagesToLocalStorage() {
 
 function getTabData(callback){
     chrome.tabs.query({ currentWindow: true, active: true }, function (tabs){
+        console.log(tabs[0]);
         callback(tabs[0]);
     });
 }
@@ -185,7 +186,7 @@ function createItem() {
             inputAddress = inputAddress.replace("http://", "");
         }
         if (inputAddress == null) return;
-        inputName = prompt("추가할 페이지의 이름은?");
+        inputName = prompt("추가할 페이지의 이름은?", tabdata.title);
         if (inputName == null) return;
         $(createBox(tabdata.favIconUrl))
             .appendTo("#pageBoxWrap")

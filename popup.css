@@ -4,8 +4,15 @@ body{
 }
 
 p{
+    margin: 5px 5px 5px 5px;
     line-height: 100%;
 }
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
 ul {
     list-style:none;
 }
@@ -15,9 +22,11 @@ ul {
     text-align: center;
     width: 100px;
     height: 100px;
+    margin: 0px 0px 0px 0px;
 }
 
 .pageicons{
+    margin : 5px 5px 5px 5px;
     width: 40px;
     height: 40px;
 }
