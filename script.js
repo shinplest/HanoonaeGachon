@@ -5,16 +5,17 @@
 var modify = false; //현재 북마크를 수정할수있는 상태인지 아닌지 판단하는 변수
 var del = false; //현재 북마크를 삭제하고 있는 상태인지 아닌지 판단하는 변수
 var basePages = 0; //기본 페이지 개수
+var gachonPages = [
+    ["가천대학교", "http://www.gachon.ac.kr/", "images/icon.png"],
+    ["공지사항", "http://www.gachon.ac.kr/community/opencampus/03.jsp?boardType_seq=358", "images/icon.png"],
+    ["도서관", "https://lib.gachon.ac.kr/", "images/icon.png"],
+    ["교양 대학", "http://glac.gachon.ac.kr/", "images/icon.png"],
+    ["wind", "https://wind.gachon.ac.kr/", "images/icon.png"]
+];
 
 //입력받은 페이지 이름과 주소를 저장한다. 
 var inputAddress = "naver.com";
 var inputName = null;
-
-var gachonPages = [
-    ["가천대학교", "http://www.gachon.ac.kr/", "images/icon.png"],
-    ["가천대", "http://www.gachon.ac.kr/", "images/icon.png"],
-    ["가천대학교교", "http://www.gachon.ac.kr/", "images/icon.png"]
-];
 
 //페이지 객체 생성자
 var Page = function (name, address, imgUrl) {
