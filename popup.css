@@ -1,5 +1,5 @@
 body{
-    width: 500px;
+    width: 400px;
     height: 350px;
 }
 
@@ -12,6 +12,7 @@ ul {
 
 .pages{
     float: left;
+    text-align: center;
     width: 100px;
     height: 100px;
 }

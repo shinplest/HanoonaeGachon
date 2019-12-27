@@ -168,19 +168,15 @@ function savePagesToLocalStorage() {
 
 function getTabData(callback){
     chrome.tabs.query({ currentWindow: true, active: true }, function (tabs){
-        callback(tabs[0].url);
+        callback(tabs[0]);
     });
 }
 
 function createItem() {
-    getTabData(function(url){
-        console.log(url)
-        var imgUrl = "chrome://favicon/" + url;
-        console.log(imgUrl);
-        // var favcon = $('link[rel="shortcut icon"]').attr('href');
-        // console.log(favcon);
+    getTabData(function(tabdata){
+
         //현재 웹페이지 주소를 디폴트로 가져옴. 
-        inputAddress = prompt("추가할 웹페이지의 주소를 입력하세요.", url);
+        inputAddress = prompt("추가할 웹페이지의 주소를 입력하세요.", tabdata.url);
         //https:// 있으면 자동으로 제외해줌. 
         if (inputAddress.indexOf("https://") != -1) {
             inputAddress = inputAddress.replace("https://", "");
@@ -191,7 +187,7 @@ function createItem() {
         if (inputAddress == null) return;
         inputName = prompt("추가할 페이지의 이름은?");
         if (inputName == null) return;
-        $(createBox(imgUrl))
+        $(createBox(tabdata.favIconUrl))
             .appendTo("#pageBoxWrap")
             .find("a").prop("href",  "http://" + inputAddress)
             .find("p").html(inputName);
