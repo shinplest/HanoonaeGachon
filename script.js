@@ -4,13 +4,17 @@
 //전역변수
 var modify = false; //현재 북마크를 수정할수있는 상태인지 아닌지 판단하는 변수
 var del = false; //현재 북마크를 삭제하고 있는 상태인지 아닌지 판단하는 변수
-var basePages = 3; //기본 페이지 개수
+var basePages = 0; //기본 페이지 개수
 
 //입력받은 페이지 이름과 주소를 저장한다. 
 var inputAddress = "naver.com";
 var inputName = null;
 
-
+var gachonPages = [
+    ["가천대학교", "http://www.gachon.ac.kr/", "images/icon.png"],
+    ["가천대", "http://www.gachon.ac.kr/", "images/icon.png"],
+    ["가천대학교교", "http://www.gachon.ac.kr/", "images/icon.png"]
+];
 
 //페이지 객체 생성자
 var Page = function (name, address, imgUrl) {
@@ -23,36 +27,25 @@ var Page = function (name, address, imgUrl) {
 //메인 jquery 함수
 $(document).ready(function () {
 
+    Pages = [];
+
     //로컬저장소가 비어있을 경우 
-    //그냥 기본 그대로 해주면 됨. 
-
-
-    //로컬저장소가 비어있지 않을 경우
-    if (localStorage.getItem("Pages") != null) {
-        Pages = JSON.parse(localStorage.getItem("Pages"));
-
-
-        //현재 배열을 제대로 읽어오는지 확인하는 코드
-        console.log(Pages);
-        //읽어온 페이지 길이만큼 읽어주면서 하나씩 만들어서 어펜드. 
-        for (var i = basePages; i < Pages.length; i++) {
-          
-            $(createBox())
-                .appendTo("#pageBoxWrap")
-                //호버 액션 현재 마우스 위치 배경색 바꿔줌
-                .hover(
-                    function () {
-                        $(this).css('backgroundColor', '#f9f9f5');
-                    },
-                    function () {
-                        $(this).css('background', 'none');
-                    }
-                )
-                .find("a").prop("href", Pages[i].address)
-                .find("img").attr("src", Pages[i].imgUrl)
-                .parent().find("p").html(Pages[i].name) 
-        }
+    //최초 실행시 한번만 가천배열을 어펜드 해줌. 
+    if (localStorage.getItem("Pages") == null) {
+        appendGachonPages();
     }
+    //아닐 경우 전부 읽어와서 페이지에 저장
+    else {
+        Pages = JSON.parse(localStorage.getItem("Pages"));
+    }
+
+
+    //현재 배열을 제대로 읽어오는지 확인하는 코드
+    console.log(Pages);
+
+    //읽어온 페이지 길이만큼 읽어주면서 하나씩 만들어서 어펜드. 
+    appendPages();
+    
 
     $('#modify').click(function () {
 
@@ -84,6 +77,32 @@ $(document).ready(function () {
     });
 })
 
+function appendGachonPages() {
+    for (var i = 0; i < gachonPages.length; i++) {
+        var pushPage = new Page(gachonPages[i][0], gachonPages[i][1], gachonPages[i][2]);
+        Pages.push(pushPage);
+        console.log("실행");
+    }
+}
+
+function appendPages(){
+    for (var i = basePages; i < Pages.length; i++) {
+        $(createBox())
+            .appendTo("#pageBoxWrap")
+            //호버 액션 현재 마우스 위치 배경색 바꿔줌
+            .hover(
+                function () {
+                    $(this).css('backgroundColor', '#f9f9f5');
+                },
+                function () {
+                    $(this).css('background', 'none');
+                }
+            )
+            .find("a").prop("href", Pages[i].address)
+            .find("img").attr("src", Pages[i].imgUrl)
+            .parent().find("p").html(Pages[i].name)
+    }
+}
 
 //페이지 삭제 관련함수
 
@@ -135,7 +154,7 @@ function createBox(imgaddress) {
     var contents =
         "<div class='pages'>"
         + "<a href='#' target='_blank'>"
-        + "<img src = '" 
+        + "<img src = '"
         + imgaddress
         + "' alt='./images/icon.png' class = 'pageicons'>"
         + "<p>"
@@ -166,15 +185,15 @@ function savePagesToLocalStorage() {
     localStorage.setItem("Pages", JSON.stringify(Pages));
 }
 
-function getTabData(callback){
-    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs){
+function getTabData(callback) {
+    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
         console.log(tabs[0]);
         callback(tabs[0]);
     });
 }
 
 function createItem() {
-    getTabData(function(tabdata){
+    getTabData(function (tabdata) {
 
         //현재 웹페이지 주소를 디폴트로 가져옴. 
         inputAddress = prompt("추가할 웹페이지의 주소를 입력하세요.", tabdata.url);
@@ -190,7 +209,7 @@ function createItem() {
         if (inputName == null) return;
         $(createBox(tabdata.favIconUrl))
             .appendTo("#pageBoxWrap")
-            .find("a").prop("href",  "http://" + inputAddress)
+            .find("a").prop("href", "http://" + inputAddress)
             .find("p").html(inputName);
         savePagesToLocalStorage();
         alert("등록되었습니다.");
