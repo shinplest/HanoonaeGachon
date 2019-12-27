@@ -19,7 +19,7 @@ ul {
 
 .pages{
     float: left;
-    text-align: center;
+    /* text-align: center; */
     width: 100px;
     height: 100px;
     margin: 0px 0px 0px 0px;
@@ -29,5 +29,11 @@ ul {
     margin : 5px 5px 5px 5px;
     width: 40px;
     height: 40px;
+}
+
+#buttonBoxWrap{
+    position: fixed;
+    bottom: 5px;
+    width: 100%;
 }
 
