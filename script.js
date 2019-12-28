@@ -10,7 +10,18 @@ var gachonPages = [
     ["공지사항", "http://www.gachon.ac.kr/community/opencampus/03.jsp?boardType_seq=358", "images/icon.png"],
     ["도서관", "https://lib.gachon.ac.kr/", "images/icon.png"],
     ["교양 대학", "http://glac.gachon.ac.kr/", "images/icon.png"],
-    ["wind", "https://wind.gachon.ac.kr/", "images/icon.png"]
+    ["wind", "https://wind.gachon.ac.kr/", "images/icon.png"],
+    ["사이버 캠퍼스", "http://cyber.gachon.ac.kr/", "images/icon.png"],
+    ["국제교류처", "http://oia.gachon.ac.kr", "images/icon.png"],
+    ["나이테", "https://naete.gachon.ac.kr", "images/icon.png"],
+    ["가천대학교 취업진로처", "https://work.gachon.ac.kr/", "images/icon.png"],
+    ["한국 장학 재단", "http://www.kosaf.go.kr/", "images/icon.png"],
+    ["vms", "https://www.vms.or.kr/", "https://www.vms.or.kr/favicon.ico"],
+    ["1365 자원봉사 포털", "https://www.1365.go.kr/", "https://www.1365.go.kr/web/vols/images/ico/favicon.ico"],
+    ["가천대에 좋아하는 사람이 있다면", "https://www.facebook.com/lovegachon/", "images/icon.png"],
+    ["가천대 에브리타임", "https://gachon.everytime.kr/", "https://gachon.everytime.kr/favicon.ico"],
+    ["가천대 대나무 숲", "https://www.facebook.com/gcubamboo/", "images/icon.png"],
+    ["소프트웨어학과", "https://sw.gachon.ac.kr/cms/", "images/icon.png"],
 ];
 
 //입력받은 페이지 이름과 주소를 저장한다. 
@@ -149,6 +160,7 @@ function deletePage() {
         $('.pages').unbind('click');
         $('#delete').html("삭제");
         del = false;
+        location.reload();
     }
 
 }
@@ -235,6 +247,7 @@ function createItem() {
         inputName = prompt("추가할 페이지의 이름은?", tabdata.title);
         inputName = inputName.substr(0, 20);
         if (inputName == null) return;
+        console.log(tabdata.favIconUrl);
         $(createBox(tabdata.favIconUrl))
             .appendTo("#pageBoxWrap")
             .find("a").prop("href", "http://" + inputAddress)
