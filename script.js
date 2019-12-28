@@ -130,14 +130,14 @@ function appendPages(){
             //호버 액션 현재 마우스 위치 배경색 바꿔줌
             .hover(
                 function () {
-                    $(this).css('backgroundColor', '#f9f9f5');
+                    $(this).children().css('backgroundColor', '#f9f9f5');
                 },
                 function () {
-                    $(this).css('background', 'none');
+                    $(this).children().css('background', 'none');
                 }
             )
-            .find("a").prop("href", Pages[i].address)
-            .find("img").attr("src", Pages[i].imgUrl)
+            .prop("href", Pages[i].address)
+            .children().find("img").attr("src", Pages[i].imgUrl)
             .parent().find("p").html(Pages[i].name)
     }
 }
@@ -191,15 +191,26 @@ function addAndRemoveDelButton() {
 
 function createBox(imgaddress) {
     var contents =
-        "<div class='pages'>"
-        + "<a href='#' target='_blank'>"
+        // "<div class='pages'>"
+        // + "<a href='#' target='_blank'>"
+        // + "<img src = '"
+        // + imgaddress
+        // + "'class = 'pageicons'>"
+        // + "<p>"
+        // + "</p>"
+        // + "</a>"
+        // + "</div>";
+
+        "<a href='#' target='_blank'>"
+        + "<div class='pages'>"
         + "<img src = '"
         + imgaddress
         + "'class = 'pageicons'>"
         + "<p>"
         + "</p>"
-        + "</a>"
-        + "</div>";
+        + "</div>"
+        + "</a>";
+      
     return contents;
 }
 
