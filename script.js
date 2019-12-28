@@ -46,6 +46,9 @@ $(document).ready(function () {
 
     //읽어온 페이지 길이만큼 읽어주면서 하나씩 만들어서 어펜드. 
     appendPages();
+
+    //읽어온 페이지에 대체 그림 넣어줌
+    replaceImage();
     
 
     $('#modify').click(function () {
@@ -76,7 +79,30 @@ $(document).ready(function () {
     $('#delete').click(function () {
         deletePage();
     });
+    $('#factoryReset').click(function () {
+        factoryReset();
+    });
 })
+
+//이미지가 없을 경우, 대체 이미지 지정해주는 함수
+function replaceImage(){
+    var imgs = $('img');
+    for(var i = 0; i < imgs.length; i++){
+        imgs[i].onerror = function(e){
+            e.target.src = 'images/icon.png';
+        };
+    }
+
+}
+
+
+function factoryReset(){
+    var factoryInput = confirm("초기화 하시겠습니까? \n저장한 북마크가 전부 지워집니다.");
+    if(factoryInput == true){
+        localStorage.clear();
+        swal("초기화 되었습니다.", "확장프로그램을 다시 켜세요!", "success");
+    }
+}
 
 function appendGachonPages() {
     for (var i = 0; i < gachonPages.length; i++) {
@@ -114,7 +140,7 @@ function deletePage() {
         //클릭 비활성화
         $('.pages').click(function () { return false });
         addAndRemoveDelButton();
-        alert("이제 삭제하고 싶은 즐겨찾기를 누르세요. ");
+        swal('이제 삭제하고 싶은 즐겨찾기를 누르세요. ', "");
         //삭제 이벤트
         del = true;
     }
@@ -157,7 +183,7 @@ function createBox(imgaddress) {
         + "<a href='#' target='_blank'>"
         + "<img src = '"
         + imgaddress
-        + "' alt='./images/icon.png' class = 'pageicons'>"
+        + "'class = 'pageicons'>"
         + "<p>"
         + "</p>"
         + "</a>"
