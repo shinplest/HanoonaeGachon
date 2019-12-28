@@ -254,6 +254,7 @@ function createItem() {
             .find("p").html(inputName);
         savePagesToLocalStorage();
         alert("등록되었습니다.");
+        location.reload();
     });
 }
 
