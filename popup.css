@@ -19,7 +19,7 @@ ul {
 
 .pages{
     float: left;
-    /* text-align: center; */
+    text-align: center;
     width: 100px;
     height: 100px;
     margin: 0px 0px 0px 0px;
@@ -35,5 +35,14 @@ ul {
     position: fixed;
     bottom: 5px;
     width: 100%;
+    text-align: right;
 }
 
+#factoryReset{
+    margin-right: 20px;
+}
+
+#title{
+    margin-left: 20px;
+    margin-bottom: 10px;
+}

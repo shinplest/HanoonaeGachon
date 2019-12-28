@@ -233,6 +233,7 @@ function createItem() {
         }
         if (inputAddress == null) return;
         inputName = prompt("추가할 페이지의 이름은?", tabdata.title);
+        inputName = inputName.substr(0, 20);
         if (inputName == null) return;
         $(createBox(tabdata.favIconUrl))
             .appendTo("#pageBoxWrap")
