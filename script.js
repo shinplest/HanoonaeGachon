@@ -1,5 +1,6 @@
 //control k + f 코드 자동정렬
 
+
 //전역변수
 var modify = false; //현재 북마크를 수정할수있는 상태인지 아닌지 판단하는 변수
 var del = false; //현재 북마크를 삭제하고 있는 상태인지 아닌지 판단하는 변수
@@ -157,7 +158,7 @@ function deletePage() {
     }
     else {
         //클릭 재활성화
-        $('.pages').unbind('click');
+        //$('.pages').unbind('click');
         $('#delete').html("삭제");
         del = false;
     }
@@ -174,7 +175,7 @@ function addAndRemoveDelButton() {
 
         //버튼을 누를시 삭제를 해준다
         $('.delButton').click(function () {
-            $(this).closest("div").remove();
+            $(this).closest('a').remove();
             //삭제 후 변경사항 저장. 
             savePagesToLocalStorage();
             alert("삭제되었습니다.");
@@ -215,7 +216,7 @@ function createBox(imgaddress) {
 
 function savePagesToLocalStorage() {
     //모든 pages가져와서 객체로 저장.
-    var pages = $(".pageWrap");
+    var pages = $(".pages");
     var tempName = null;
     var tempAddress = null;
     var tempImgUrl = null;
@@ -224,7 +225,7 @@ function savePagesToLocalStorage() {
     var Pages = new Array();
     for (var i = 0; i < pages.length; i++) {
         tempName = $(pages[i]).find("p").text();
-        tempAddress = $(pages[i]).find("a").attr("href");
+        tempAddress = $(pages[i]).attr("href");
         tempImgUrl = $(pages[i]).find("img").attr("src");
         var pushPage = new Page(tempName, tempAddress, tempImgUrl);
         Pages.push(pushPage);
@@ -260,8 +261,8 @@ function createItem() {
         console.log(tabdata.favIconUrl);
         $(createBox(tabdata.favIconUrl))
             .appendTo("#pageBoxWrap")
-            .find("a").prop("href", "http://" + inputAddress)
-            .find("p").html(inputName);
+            .prop("href", "http://" + inputAddress)
+            .children().find("p").html(inputName);
         savePagesToLocalStorage();
         alert("등록되었습니다.");
         location.reload();
