@@ -1,6 +1,7 @@
 body{
     width: 500px;
     height: 310px;
+    margin: 0;
 }
 
 p{
@@ -32,8 +33,10 @@ ul {
 }
 
 #buttonBoxWrap{
-    position: fixed;
+    position: relative;
+    background-color: #79AAD3;
     bottom: 5px;
+    height: 30px;
     width: 100%;
     text-align: right;
 }
