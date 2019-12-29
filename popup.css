@@ -18,12 +18,20 @@ a{
 ul {
     list-style:none;
 }
+.pages{
+    float: left;
+    text-align: center;
+    width: 100px;
+    height: 110px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+}
 
 .pageWrap{
     float: left;
     text-align: center;
     width: 100px;
-    height: 100px;
+    height: 70px;
     margin: 0px 0px 0px 0px;
 }
 

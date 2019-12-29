@@ -37,7 +37,6 @@ var Page = function (name, address, imgUrl) {
 
 //메인 jquery 함수
 $(document).ready(function () {
-
     Pages = [];
 
     //로컬저장소가 비어있을 경우 
@@ -49,17 +48,12 @@ $(document).ready(function () {
     else {
         Pages = JSON.parse(localStorage.getItem("Pages"));
     }
-
-
     //현재 배열을 제대로 읽어오는지 확인하는 코드
     console.log(Pages);
-
     //읽어온 페이지 길이만큼 읽어주면서 하나씩 만들어서 어펜드. 
     appendPages();
-
     //읽어온 페이지에 대체 그림 넣어줌
     replaceImage();
-    
 
     $('#modify').click(function () {
 
@@ -70,10 +64,7 @@ $(document).ready(function () {
             $("#pageBoxWrap").disableSelection();
             $('#modify').html('완료');
             modify = true;
-
             //이동할수 있는 것을 표현해 주기 위한 애니메이션 코드 추가 예정
-
-
             //수정을 완료하면 다시 드래그 앤 드랍 기능을 꺼줌    
         } else {
             modify = false;
@@ -94,114 +85,12 @@ $(document).ready(function () {
     });
 })
 
-//이미지가 없을 경우, 대체 이미지 지정해주는 함수
-function replaceImage(){
-    var imgs = $('img');
-    for(var i = 0; i < imgs.length; i++){
-        imgs[i].onerror = function(e){
-            e.target.src = 'images/icon.png';
-        };
-    }
 
-}
-
-
-function factoryReset(){
-    var factoryInput = confirm("초기화 하시겠습니까? \n저장한 북마크가 전부 지워집니다.");
-    if(factoryInput == true){
-        localStorage.clear();
-        swal("초기화","완료되었습니다.", "success");
-        location.reload();
-        
-    }
-}
-
-function appendGachonPages() {
-    for (var i = 0; i < gachonPages.length; i++) {
-        var pushPage = new Page(gachonPages[i][0], gachonPages[i][1], gachonPages[i][2]);
-        Pages.push(pushPage);
-        console.log("실행");
-    }
-}
-
-function appendPages(){
-    for (var i = basePages; i < Pages.length; i++) {
-        $(createBox())
-            .appendTo("#pageBoxWrap")
-            //호버 액션 현재 마우스 위치 배경색 바꿔줌
-            .hover(
-                function () {
-                    $(this).children().css('backgroundColor', '#f9f9f5');
-                },
-                function () {
-                    $(this).children().css('background', 'none');
-                }
-            )
-            .prop("href", Pages[i].address)
-            .children().find("img").attr("src", Pages[i].imgUrl)
-            .parent().find("p").html(Pages[i].name)
-    }
-}
-
-//페이지 삭제 관련함수
-
-//삭제완료 누르고도 삭제가 계속 나타나는 버그 해결방안 찾기 
-function deletePage() {
-    if (del == false) {
-        $('#delete').html("삭제 완료");
-        //클릭 비활성화
-        $('.pages').click(function () { return false });
-        addAndRemoveDelButton();
-        alert("이제 삭제하고 싶은 즐겨찾기를 누르세요. ");
-        //삭제 이벤트
-        del = true;
-    }
-    else {
-        //클릭 재활성화
-        //$('.pages').unbind('click');
-        $('#delete').html("삭제");
-        del = false;
-    }
-
-}
-
-//삭제버튼을 생성하고 지우고 페이지 지우는 이벤트 처리
-function addAndRemoveDelButton() {
-    //마우스 올릴시 삭제 버튼 추가
-    $('.pageWrap').mouseenter(function () {
-        var testbutton = "<button class = 'delButton'>삭제</button>";
-        $(this).closest("div").css('backgroundColor', '#f9f9f5');
-        $(testbutton).appendTo($(this));
-
-        //버튼을 누를시 삭제를 해준다
-        $('.delButton').click(function () {
-            $(this).closest('a').remove();
-            //삭제 후 변경사항 저장. 
-            savePagesToLocalStorage();
-            alert("삭제되었습니다.");
-        });
-    });
-    //마우스 나갈시 삭제버튼 제거
-    $('.pageWrap').mouseleave(function () {
-        $(this).closest("div").css('background', 'none');
-        $(this).find('.delButton').remove();
-    });
-}
-
-
+//페이지 아이콘 박스 생성
 function createBox(imgaddress) {
     var contents =
-        // "<div class='pages'>"
-        // + "<a href='#' target='_blank'>"
-        // + "<img src = '"
-        // + imgaddress
-        // + "'class = 'pageicons'>"
-        // + "<p>"
-        // + "</p>"
-        // + "</a>"
-        // + "</div>";
-
-        "<a href='#' target='_blank' class = 'pages'>"
+        "<div class = 'pages'>"
+        + "<a href='#' target='_blank' class = 'pagesLink'>"
         + "<div class = 'pageWrap'>"
         + "<img src = '"
         + imgaddress
@@ -209,39 +98,12 @@ function createBox(imgaddress) {
         + "<p>"
         + "</p>"
         + "</div>"
-        + "</a>";
-      
+        + "</a>"
+        + "<div>";
+
     return contents;
 }
-
-function savePagesToLocalStorage() {
-    //모든 pages가져와서 객체로 저장.
-    var pages = $(".pages");
-    var tempName = null;
-    var tempAddress = null;
-    var tempImgUrl = null;
-
-    //배열에 현재 페이지 정보 저장
-    var Pages = new Array();
-    for (var i = 0; i < pages.length; i++) {
-        tempName = $(pages[i]).find("p").text();
-        tempAddress = $(pages[i]).attr("href");
-        tempImgUrl = $(pages[i]).find("img").attr("src");
-        var pushPage = new Page(tempName, tempAddress, tempImgUrl);
-        Pages.push(pushPage);
-    }
-    //로컬스토리지 초기화후 페이지 정보 저장 
-    localStorage.clear();
-    localStorage.setItem("Pages", JSON.stringify(Pages));
-}
-
-function getTabData(callback) {
-    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
-        console.log(tabs[0]);
-        callback(tabs[0]);
-    });
-}
-
+//추가했을 경우 실행되는 함수 
 function createItem() {
     getTabData(function (tabdata) {
 
@@ -261,11 +123,134 @@ function createItem() {
         console.log(tabdata.favIconUrl);
         $(createBox(tabdata.favIconUrl))
             .appendTo("#pageBoxWrap")
-            .prop("href", "http://" + inputAddress)
+            .find('a').prop("href", "http://" + inputAddress)
             .children().find("p").html(inputName);
         savePagesToLocalStorage();
         alert("등록되었습니다.");
         location.reload();
+    });
+}
+//페이지 삭제 관련함수
+function deletePage() {
+    if (del == false) {
+        $('#delete').html("삭제 완료");
+        //클릭 비활성화
+        $('.pages').click(function () { return false });
+        addAndRemoveDelButton();
+        alert("이제 삭제하고 싶은 즐겨찾기를 누르세요. ");
+        //삭제 이벤트
+        del = true;
+    }
+    else {
+        //클릭 재활성화
+        //$('.pages').unbind('click');
+        $('#delete').html("삭제");
+        del = false;
+    }
+
+}
+//삭제버튼을 생성하고 지우고 페이지 지우는 이벤트 처리
+function addAndRemoveDelButton() {
+    //마우스 올릴시 삭제 버튼 추가
+    $('.pages').mouseenter(function () {
+        var testbutton = "<button class = 'delButton'>삭제</button>";
+        $(this).children().css('backgroundColor', '#f9f9f5');
+        $(testbutton).appendTo($(this));
+
+        //버튼을 누를시 삭제를 해준다
+        $('.delButton').click(function () {
+            $(this).parent().remove();
+            //삭제 후 변경사항 저장. 
+            savePagesToLocalStorage();
+            alert("삭제되었습니다.");
+        });
+    });
+    //마우스 나갈시 삭제버튼 제거
+    $('.pages').mouseleave(function () {
+        $(this).closest("div").css('background', 'none');
+        $(this).find('.delButton').remove();
+    });
+}
+
+//페이지 정보를 로컬스토리지에 저장(삭제하거나 추가, 순서 변경시에 실행됨)
+function savePagesToLocalStorage() {
+    //모든 pages가져와서 객체로 저장.
+    var pages = $(".pages");
+    var tempName = null;
+    var tempAddress = null;
+    var tempImgUrl = null;
+
+    //배열에 현재 페이지 정보 저장
+    var Pages = new Array();
+    for (var i = 0; i < pages.length; i++) {
+        tempName = $(pages[i]).find("p").text();
+        tempAddress = $(pages[i]).find("a").attr("href");
+        tempImgUrl = $(pages[i]).find("img").attr("src");
+        var pushPage = new Page(tempName, tempAddress, tempImgUrl);
+        Pages.push(pushPage);
+    }
+    //로컬스토리지 초기화후 페이지 정보 저장 
+    localStorage.clear();
+    localStorage.setItem("Pages", JSON.stringify(Pages));
+}
+
+//페이지 추가 
+function appendPages() {
+    for (var i = basePages; i < Pages.length; i++) {
+        $(createBox())
+            .appendTo("#pageBoxWrap")
+            //호버 액션 현재 마우스 위치 배경색 바꿔줌
+            .hover(
+                function () {
+                    $(this).children().css('backgroundColor', '#f9f9f5');
+                },
+                function () {
+                    $(this).children().css('background', 'none');
+                }
+            )
+            .find('a').prop("href", Pages[i].address)
+            .children().find("img").attr("src", Pages[i].imgUrl)
+            .parent().find("p").html(Pages[i].name)
+    }
+}
+
+//이미지가 없을 경우, 대체 이미지 지정해주는 함수
+function replaceImage() {
+    var imgs = $('img');
+    for (var i = 0; i < imgs.length; i++) {
+        imgs[i].onerror = function (e) {
+            e.target.src = 'images/icon.png';
+        };
+    }
+
+}
+//초기화 해주는 함수
+function factoryReset() {
+    var factoryInput = confirm("초기화 하시겠습니까? \n저장한 북마크가 전부 지워집니다.");
+    if (factoryInput == true) {
+        localStorage.clear();
+
+        //확인을 누를경우만, 페이지 새로고침 
+        swal("초기화", "완료되었습니다.", "success")
+            .then((value) => {
+                location.reload();
+            });
+    }
+}
+
+function appendGachonPages() {
+    for (var i = 0; i < gachonPages.length; i++) {
+        var pushPage = new Page(gachonPages[i][0], gachonPages[i][1], gachonPages[i][2]);
+        Pages.push(pushPage);
+        console.log("실행");
+    }
+}
+
+
+function getTabData(callback) {
+    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+        console.log(tabs[0]);
+        callback(tabs[0]);
     });
 }
 
