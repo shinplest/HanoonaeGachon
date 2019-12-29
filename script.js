@@ -4,7 +4,6 @@
 //전역변수
 var modify = false; //현재 북마크를 수정할수있는 상태인지 아닌지 판단하는 변수
 var del = false; //현재 북마크를 삭제하고 있는 상태인지 아닌지 판단하는 변수
-var basePages = 0; //기본 페이지 개수
 var gachonPages = [
     ["가천대학교", "http://www.gachon.ac.kr/", "images/icon.png"],
     ["공지사항", "http://www.gachon.ac.kr/community/opencampus/03.jsp?boardType_seq=358", "images/icon.png"],
@@ -21,7 +20,7 @@ var gachonPages = [
     ["가천대 에브리타임", "https://gachon.everytime.kr/", "https://gachon.everytime.kr/favicon.ico"],
     ["가천대에 좋아하는 사람이 있다면", "https://www.facebook.com/lovegachon/", "https://static.xx.fbcdn.net/rsrc.php/yo/r/iRmz9lCMBD2.ico"],
     ["가천대 대나무 숲", "https://www.facebook.com/gcubamboo/", "https://static.xx.fbcdn.net/rsrc.php/yo/r/iRmz9lCMBD2.ico"]
-];
+];//기본페이지들 
 
 //입력받은 페이지 이름과 주소를 저장한다. 
 var inputAddress = "https://www.gachon.ac.kr/main.jsp";
@@ -34,13 +33,11 @@ var Page = function (name, address, imgUrl) {
     this.imgUrl = imgUrl;
 }
 
-
-//메인 jquery 함수
+//메인 jquery 스크립트
 $(document).ready(function () {
     Pages = [];
 
-    //로컬저장소가 비어있을 경우 
-    //최초 실행시 한번만 가천배열을 어펜드 해줌. 
+    //로컬저장소가 비어있을 경우 - 최초 실행시 한번만 가천배열을 어펜드 해줌. 
     if (localStorage.getItem("Pages") == null) {
         appendGachonPages();
     }
@@ -54,25 +51,9 @@ $(document).ready(function () {
     appendPages();
     //읽어온 페이지에 대체 그림 넣어줌
     replaceImage();
-
     $('#modify').click(function () {
-
-        //수정이 불가능한 상태에서 수정을 클릭한경우, 드래그 앤 드랍으로 정렬 순서를 바꿀 수 있게 한다.
-        if (modify == false) {
-            $("#pageBoxWrap").sortable();
-            $("#pageBoxWrap").sortable("option", "disabled", false); //다시 바꿀수 있게 하기 위한 코드
-            $("#pageBoxWrap").disableSelection();
-            $('#modify').html('완료');
-            modify = true;
-            //이동할수 있는 것을 표현해 주기 위한 애니메이션 코드 추가 예정
-            //수정을 완료하면 다시 드래그 앤 드랍 기능을 꺼줌    
-        } else {
-            modify = false;
-            $("#pageBoxWrap").sortable("disable");
-            $('#modify').html('수정');
-        }
+        modifyPages();
     });
-
     //추가 버튼 눌렀을 때
     $('#add').click(function () {
         createItem();
@@ -196,7 +177,7 @@ function savePagesToLocalStorage() {
 
 //페이지 추가 
 function appendPages() {
-    for (var i = basePages; i < Pages.length; i++) {
+    for (var i = 0; i < Pages.length; i++) {
         $(createBox())
             .appendTo("#pageBoxWrap")
             //호버 액션 현재 마우스 위치 배경색 바꿔줌
@@ -274,3 +255,19 @@ function validateItem() {
     return flag;
 }
 
+//수정이 불가능한 상태에서 수정을 클릭한경우, 드래그 앤 드랍으로 정렬 순서를 바꿀 수 있게 한다.
+function modifyPages() {
+    if (modify == false) {
+        $("#pageBoxWrap").sortable();
+        $("#pageBoxWrap").sortable("option", "disabled", false); //다시 바꿀수 있게 하기 위한 코드
+        $("#pageBoxWrap").disableSelection();
+        $('#modify').html('완료');
+        modify = true;
+        //이동할수 있는 것을 표현해 주기 위한 애니메이션 코드 추가 예정
+        //수정을 완료하면 다시 드래그 앤 드랍 기능을 꺼줌    
+    } else {
+        modify = false;
+        $("#pageBoxWrap").sortable("disable");
+        $('#modify').html('수정');
+    }
+}
