@@ -136,7 +136,6 @@ function addAndRemoveDelButton() {
     //마우스 올릴시 삭제 버튼 추가
     $('.pages').mouseenter(function () {
         var testbutton = "<button class = 'delButton'>삭제</button>";
-        $(this).children().css('backgroundColor', '#f9f9f5');
         $(testbutton).appendTo($(this));
 
         //버튼을 누를시 삭제를 해준다
@@ -149,7 +148,6 @@ function addAndRemoveDelButton() {
     });
     //마우스 나갈시 삭제버튼 제거
     $('.pages').mouseleave(function () {
-        $(this).closest("div").css('background', 'none');
         $(this).find('.delButton').remove();
     });
 }
@@ -184,10 +182,10 @@ function appendPages() {
             //호버 액션 현재 마우스 위치 배경색 바꿔줌
             .hover(
                 function () {
-                    $(this).children().css('backgroundColor', '#f9f9f5');
+                    $(this).css('backgroundColor', '#f9f9f5');
                 },
                 function () {
-                    $(this).children().css('background', 'none');
+                    $(this).css('background', 'none');
                 }
             )
             .find('a').prop("href", Pages[i].address)
