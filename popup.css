@@ -43,6 +43,7 @@ ul {
 
 #buttonBoxWrap{
     position: relative;
+    /* background-color: #79AAD3; */
     background-color: #79AAD3;
     bottom: 5px;
     height: 30px;
