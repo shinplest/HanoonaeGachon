@@ -1,3 +1,6 @@
+
+
+
 body{
     width: 500px;
     height: 100px;
@@ -5,6 +8,7 @@ body{
 }
 
 p{
+    font-family: 'Nanum Gothic', sans-serif;
     margin: 5px 5px 5px 5px;
     line-height: 100%;
 }
