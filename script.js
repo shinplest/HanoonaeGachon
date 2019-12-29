@@ -108,8 +108,10 @@ function createItem() {
             .find('a').prop("href", "http://" + inputAddress)
             .children().find("p").html(inputName);
         savePagesToLocalStorage();
-        alert("등록되었습니다.");
-        location.reload();
+        swal("등록", "완료되었습니다.", "success")
+        .then((value) => {
+            location.reload();
+        });
     });
 }
 //페이지 삭제 관련함수
@@ -119,7 +121,7 @@ function deletePage() {
         //클릭 비활성화
         $('.pages').click(function () { return false });
         addAndRemoveDelButton();
-        alert("이제 삭제하고 싶은 즐겨찾기를 누르세요. ");
+        swal("이제 삭제하고 싶은 즐겨찾기를 누르세요. ");
         //삭제 이벤트
         del = true;
     }
@@ -143,7 +145,10 @@ function addAndRemoveDelButton() {
             $(this).parent().remove();
             //삭제 후 변경사항 저장. 
             savePagesToLocalStorage();
-            alert("삭제되었습니다.");
+            swal("삭제", "완료되었습니다.", "success")
+            .then((value) => {
+                location.reload();
+            });
         });
     });
     //마우스 나갈시 삭제버튼 제거
@@ -240,7 +245,8 @@ function modifyPages() {
         $("#pageBoxWrap").sortable();
         $("#pageBoxWrap").sortable("option", "disabled", false); //다시 바꿀수 있게 하기 위한 코드
         $("#pageBoxWrap").disableSelection();
-        $('#modify').html('완료');
+        $('#modify').html('순서 변경 완료');
+        swal("드래그 해서 순서를 변경하세요.")
         modify = true;
         //이동할수 있는 것을 표현해 주기 위한 애니메이션 코드 추가 예정
         //수정을 완료하면 다시 드래그 앤 드랍 기능을 꺼줌    
@@ -248,5 +254,9 @@ function modifyPages() {
         modify = false;
         $("#pageBoxWrap").sortable("disable");
         $('#modify').html('수정');
+        swal("순서 변경", "완료되었습니다.", "success")
+        .then((value) => {
+            location.reload();
+        });
     }
 }
