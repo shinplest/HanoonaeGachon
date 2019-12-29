@@ -53,6 +53,7 @@ $(document).ready(function () {
     replaceImage();
     $('#modify').click(function () {
         modifyPages();
+        savePagesToLocalStorage();
     });
     //추가 버튼 눌렀을 때
     $('#add').click(function () {
@@ -233,26 +234,6 @@ function getTabData(callback) {
         console.log(tabs[0]);
         callback(tabs[0]);
     });
-}
-
-
-function validateItem() {
-    var items = $("input[type='text'][name='item']");
-    if (items.length == 0) {
-        alert("작성된 아이템이 없습니다.");
-        return false;
-    }
-
-    var flag = true;
-    for (var i = 0; i < items.length; i++) {
-        if ($(items.get(i)).val().trim() == "") {
-            flag = false;
-            alert("내용을 입력하지 않은 항목이 있습니다.");
-            break;
-        }
-    }
-
-    return flag;
 }
 
 //수정이 불가능한 상태에서 수정을 클릭한경우, 드래그 앤 드랍으로 정렬 순서를 바꿀 수 있게 한다.
