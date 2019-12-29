@@ -215,7 +215,7 @@ function createBox(imgaddress) {
 
 function savePagesToLocalStorage() {
     //모든 pages가져와서 객체로 저장.
-    var pages = $(".pages");
+    var pages = $(".pageWrap");
     var tempName = null;
     var tempAddress = null;
     var tempImgUrl = null;
