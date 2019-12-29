@@ -1,13 +1,26 @@
+@font-face { font-family: 'yg-jalnan'; 
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff'); 
+    font-weight: normal; font-style: normal; }
+
+    @font-face { font-family: 'Cafe24Danjunghae'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Danjunghae.woff') format('woff'); font-weight: normal; font-style: normal; }
+
+    @font-face { font-family: 'NotoSerifKR'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NotoSerifKR.woff') format('woff'); font-weight: normal; font-style: normal; }
 body{
     width: 500px;
     height: 100px;
     margin: 0;
 }
 
+h1{
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
 p{
     font-family: 'Nanum Gothic', sans-serif;
     margin: 5px 5px 5px 5px;
     line-height: 100%;
+    font-size: 13px;
+    font-weight: 800;
 }
 
 a{
@@ -40,6 +53,54 @@ ul {
     width: 32px;
     height: 32px;
 }
+
+/* .basicButtons{
+    font-family: 'Nanum Gothic', sans-serif;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 13px;
+} */
+
+button{
+    background:#1AAB8A;
+    color:#fff;
+    border:none;
+    position:relative;
+    height:20px;
+    font-size:1.0em;
+    padding:0 2em;
+    cursor:pointer;
+    transition:800ms ease all;
+    outline:none;
+  }
+  button:hover{
+    background:#fff;
+    color:#1AAB8A;
+  }
+  button:before,button:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: #1AAB8A;
+    transition:400ms ease all;
+  }
+  button:after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+  }
+  button:hover:before,button:hover:after{
+    width:100%;
+    transition:800ms ease all;
+  }
+  
+
 
 #buttonBoxWrap{
     position: relative;
