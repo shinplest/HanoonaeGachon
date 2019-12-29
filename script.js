@@ -1,6 +1,5 @@
 //control k + f 코드 자동정렬
 
-
 //전역변수
 var modify = false; //현재 북마크를 수정할수있는 상태인지 아닌지 판단하는 변수
 var del = false; //현재 북마크를 삭제하고 있는 상태인지 아닌지 판단하는 변수
@@ -20,11 +19,11 @@ var gachonPages = [
     ["1365 자원봉사 포털", "https://www.1365.go.kr/", "https://www.1365.go.kr/web/vols/images/ico/favicon.ico"],
     ["가천대 에브리타임", "https://gachon.everytime.kr/", "https://gachon.everytime.kr/favicon.ico"],
     ["가천대에 좋아하는 사람이 있다면", "https://www.facebook.com/lovegachon/", "https://static.xx.fbcdn.net/rsrc.php/yo/r/iRmz9lCMBD2.ico"],
-    ["가천대 대나무 숲", "https://www.facebook.com/gcubamboo/", "https://static.xx.fbcdn.net/rsrc.php/yo/r/iRmz9lCMBD2.ico"],
+    ["가천대 대나무 숲", "https://www.facebook.com/gcubamboo/", "https://static.xx.fbcdn.net/rsrc.php/yo/r/iRmz9lCMBD2.ico"]
 ];
 
 //입력받은 페이지 이름과 주소를 저장한다. 
-var inputAddress = "naver.com";
+var inputAddress = "https://www.gachon.ac.kr/main.jsp";
 var inputName = null;
 
 //페이지 객체 생성자
@@ -110,7 +109,9 @@ function factoryReset(){
     var factoryInput = confirm("초기화 하시겠습니까? \n저장한 북마크가 전부 지워집니다.");
     if(factoryInput == true){
         localStorage.clear();
-        swal("초기화 되었습니다.", "확장프로그램을 다시 켜세요!", "success");
+        swal("초기화","완료되었습니다.", "success");
+        location.reload();
+        
     }
 }
 
@@ -150,7 +151,7 @@ function deletePage() {
         //클릭 비활성화
         $('.pages').click(function () { return false });
         addAndRemoveDelButton();
-        swal('이제 삭제하고 싶은 즐겨찾기를 누르세요. ', "");
+        alert("이제 삭제하고 싶은 즐겨찾기를 누르세요. ");
         //삭제 이벤트
         del = true;
     }
@@ -159,7 +160,6 @@ function deletePage() {
         $('.pages').unbind('click');
         $('#delete').html("삭제");
         del = false;
-        location.reload();
     }
 
 }
@@ -167,7 +167,7 @@ function deletePage() {
 //삭제버튼을 생성하고 지우고 페이지 지우는 이벤트 처리
 function addAndRemoveDelButton() {
     //마우스 올릴시 삭제 버튼 추가
-    $('.pages').mouseenter(function () {
+    $('.pageWrap').mouseenter(function () {
         var testbutton = "<button class = 'delButton'>삭제</button>";
         $(this).closest("div").css('backgroundColor', '#f9f9f5');
         $(testbutton).appendTo($(this));
@@ -181,7 +181,7 @@ function addAndRemoveDelButton() {
         });
     });
     //마우스 나갈시 삭제버튼 제거
-    $('.pages').mouseleave(function () {
+    $('.pageWrap').mouseleave(function () {
         $(this).closest("div").css('background', 'none');
         $(this).find('.delButton').remove();
     });
@@ -200,8 +200,8 @@ function createBox(imgaddress) {
         // + "</a>"
         // + "</div>";
 
-        "<a href='#' target='_blank'>"
-        + "<div class='pages'>"
+        "<a href='#' target='_blank' class = 'pages'>"
+        + "<div class = 'pageWrap'>"
         + "<img src = '"
         + imgaddress
         + "'class = 'pageicons'>"

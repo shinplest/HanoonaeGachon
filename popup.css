@@ -18,7 +18,7 @@ ul {
     list-style:none;
 }
 
-.pages{
+.pageWrap{
     float: left;
     text-align: center;
     width: 100px;
