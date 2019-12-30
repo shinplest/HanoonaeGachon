@@ -47,19 +47,12 @@ ul {
     height: 32px;
 }
 
-/* .basicButtons{
-    font-family: 'Nanum Gothic', sans-serif;
-    background-color: #4CAF50;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    font-size: 13px;
-} */
 
 .basicButtons{
+    font-family: 'Nanum Gothic', sans-serif;
     background:#6DA0D9;
     border-radius: 8px;
-    color:#fff;
+    color: white;
     border:none;
     position:relative;
     height:21px;

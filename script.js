@@ -209,16 +209,32 @@ function replaceImage() {
 }
 //초기화 해주는 함수
 function factoryReset() {
-    var factoryInput = confirm("초기화 하시겠습니까? \n저장한 북마크가 전부 지워집니다.");
-    if (factoryInput == true) {
-        localStorage.clear();
+    //var factoryInput = confirm("초기화 하시겠습니까? \n저장한 북마크가 전부 지워집니다.");
+    // swal("초기화 하시겠습니까? \n저장한 북마크가 전부 지워집니다.", {
+    //     buttons: ["아니오", "네"],
+    //   })
+    //   .then((value) => {
+    //     location.reload();
+    // });
 
-        //확인을 누를경우만, 페이지 새로고침 
-        swal("초기화", "완료되었습니다.", "success")
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this imaginary file!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            localStorage.clear();
+            swal("초기화", "완료되었습니다.", "success")
             .then((value) => {
                 location.reload();
             });
-    }
+        } else {
+          swal("초기화 실패");
+        }
+      });
 }
 
 function appendGachonPages() {
