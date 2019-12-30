@@ -1,5 +1,5 @@
 # 한눈에 가천
-<p align = "center>
+<p align="center">
 <a href="https://opensource.org/licenses/MIT"><img alt="License" src="https://img.shields.io/badge/Licence-MIT-green"/></a>
 </p>                                                                                                                            
 <p align="center">
