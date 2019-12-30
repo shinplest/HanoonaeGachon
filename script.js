@@ -109,9 +109,9 @@ function createItem() {
             .children().find("p").html(inputName);
         savePagesToLocalStorage();
         swal("등록", "완료되었습니다.", "success")
-        .then((value) => {
-            location.reload();
-        });
+            .then((value) => {
+                location.reload();
+            });
     });
 }
 //페이지 삭제 관련함수
@@ -209,32 +209,24 @@ function replaceImage() {
 }
 //초기화 해주는 함수
 function factoryReset() {
-    //var factoryInput = confirm("초기화 하시겠습니까? \n저장한 북마크가 전부 지워집니다.");
-    // swal("초기화 하시겠습니까? \n저장한 북마크가 전부 지워집니다.", {
-    //     buttons: ["아니오", "네"],
-    //   })
-    //   .then((value) => {
-    //     location.reload();
-    // });
-
     swal({
-        title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this imaginary file!",
+        title: "초기화 하시겠습니까?",
+        text: "새로 저장한 데이터가 모두 삭제됩니다!",
         icon: "warning",
         buttons: true,
         dangerMode: true,
-      })
-      .then((willDelete) => {
-        if (willDelete) {
-            localStorage.clear();
-            swal("초기화", "완료되었습니다.", "success")
-            .then((value) => {
-                location.reload();
-            });
-        } else {
-          swal("초기화 실패");
-        }
-      });
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                localStorage.clear();
+                swal("초기화", "완료되었습니다.", "success")
+                    .then((value) => {
+                        location.reload();
+                    });
+            } else {
+                swal("초기화 실패");
+            }
+        });
 }
 
 function appendGachonPages() {
@@ -269,8 +261,8 @@ function modifyPages() {
         $("#pageBoxWrap").sortable("disable");
         $('#modify').html('수정');
         swal("순서 변경", "완료되었습니다.", "success")
-        .then((value) => {
-            location.reload();
-        });
+            .then((value) => {
+                location.reload();
+            });
     }
 }
