@@ -129,6 +129,7 @@ function deletePage() {
         //클릭 재활성화
         //$('.pages').unbind('click');
         $('#delete').html("삭제");
+        location.reload();
         del = false;
     }
 
@@ -145,10 +146,7 @@ function addAndRemoveDelButton() {
             $(this).parent().remove();
             //삭제 후 변경사항 저장. 
             savePagesToLocalStorage();
-            swal("삭제", "완료되었습니다.", "success")
-            .then((value) => {
-                location.reload();
-            });
+            swal("삭제", "완료되었습니다.", "success");
         });
     });
     //마우스 나갈시 삭제버튼 제거
