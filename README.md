@@ -1,12 +1,10 @@
 # 한눈에 가천
 <p align = "center>
-            <a href="https://opensource.org/licenses/MIT"><img alt="License" src="https://img.shields.io/badge/Licence-MIT-green"/></a>
+<a href="https://opensource.org/licenses/MIT"><img alt="License" src="https://img.shields.io/badge/Licence-MIT-green"/></a>
 </p>                                                                                                                            
 <p align="center">
 가천대생이 필요한 모든 웹페이지를 한번에 모아주는 크롬 익스텐션(확장프로그램) 입니다.
 </p>
-
-가천대생이 필요한 모든 웹페이지를 한번에 모아주는 크롬 익스텐션(확장프로그램) 입니다. 
 <p align="center">
 <img src="./SampleImages/sample.PNG" width = "90%">
 </p>
