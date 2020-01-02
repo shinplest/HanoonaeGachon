@@ -6,10 +6,11 @@
 가천대생이 필요한 모든 웹페이지를 한번에 모아주는 크롬 익스텐션(확장프로그램) 입니다.
 </p>
 <p align="center">
-https://chrome.google.com/webstore/detail/%ED%95%9C%EB%88%88%EC%97%90-%EA%B0%80%EC%B2%9C/hemcljngffhjcnnoakkiagebmbococnb
+<img src="./SampleImages/sample.PNG" width = "90%">
 </p>
 <p align="center">
-<img src="./SampleImages/sample.PNG" width = "90%">
+    크롬 웹스토어 
+https://chrome.google.com/webstore/detail/%ED%95%9C%EB%88%88%EC%97%90-%EA%B0%80%EC%B2%9C/hemcljngffhjcnnoakkiagebmbococnb
 </p>
 
 ## Including in your project
@@ -35,7 +36,7 @@ var gachonPages = [
     ["가천대 에브리타임", "https://gachon.everytime.kr/", "https://gachon.everytime.kr/favicon.ico"],
     ["가천대에 좋아하는 사람이 있다면", "https://www.facebook.com/lovegachon/", "https://static.xx.fbcdn.net/rsrc.php/yo/r/iRmz9lCMBD2.ico"],
     ["가천대 대나무 숲", "https://www.facebook.com/gcubamboo/", "https://static.xx.fbcdn.net/rsrc.php/yo/r/iRmz9lCMBD2.ico"]
-]
+];
 ```
 
 
