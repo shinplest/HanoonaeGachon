@@ -1,16 +1,18 @@
 # 한눈에 가천
-<p align="center">
+<p align="left">
 <a href="https://opensource.org/licenses/MIT"><img alt="License" src="https://img.shields.io/badge/Licence-MIT-green"/></a>
 </p>                                                                                                                            
-<p align="center">
+<p align="left">
 가천대생이 필요한 모든 웹페이지를 한번에 모아주는 크롬 익스텐션(확장프로그램) 입니다.
 </p>
-<p align="center">
+<p align="left">
 <img src="./SampleImages/sample.PNG" width = "90%">
 </p>
-<p align="center">
+<p align="left">
     크롬 웹스토어 
-https://chrome.google.com/webstore/detail/%ED%95%9C%EB%88%88%EC%97%90-%EA%B0%80%EC%B2%9C/hemcljngffhjcnnoakkiagebmbococnb
+    click <a href="https://chrome.google.com/webstore/detail/%ED%95%9C%EB%88%88%EC%97%90-%EA%B0%80%EC%B2%9C/hemcljngffhjcnnoakkiagebmbococnb">here</a>to add this extension
+    <a href="https://chrome.google.com/webstore/detail/%ED%95%9C%EB%88%88%EC%97%90-%EA%B0%80%EC%B2%9C/hemcljngffhjcnnoakkiagebmbococnb"></a>를 눌러 크롬에 추가하세요
+
 </p>
 
 ## Including in your project
