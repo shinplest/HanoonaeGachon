@@ -9,7 +9,7 @@
 <img src="./SampleImages/sample.PNG" width = "90%">
 </p>
 <p align="left"> 
-    click <a href="https://chrome.google.com/webstore/detail/%ED%95%9C%EB%88%88%EC%97%90-%EA%B0%80%EC%B2%9C/hemcljngffhjcnnoakkiagebmbococnb">here</a>to add this extension!
+    click <a href="https://chrome.google.com/webstore/detail/%ED%95%9C%EB%88%88%EC%97%90-%EA%B0%80%EC%B2%9C/hemcljngffhjcnnoakkiagebmbococnb">here</a> to add this extension!
 </p>
 <p>
 <a href="https://chrome.google.com/webstore/detail/%ED%95%9C%EB%88%88%EC%97%90-%EA%B0%80%EC%B2%9C/hemcljngffhjcnnoakkiagebmbococnb">여기</a>를 눌러 크롬에 추가하세요!
