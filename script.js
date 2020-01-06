@@ -6,6 +6,7 @@ var modify = false; //현재 북마크를 수정할수있는 상태인지 아닌
 var del = false; //현재 북마크를 삭제하고 있는 상태인지 아닌지 판단하는 변수
 var gachonPages = [
     ["가천대학교", "http://www.gachon.ac.kr/", "images/icon.png"],
+    ["학사행정(웹표준)", "https://www.gachon.ac.kr/site/sso_login.jsp?RelayState=https://info.gachon.ac.kr/exsignon/sso/sso_index.jsp", "images/icon.png"],
     ["공지사항", "http://www.gachon.ac.kr/community/opencampus/03.jsp?boardType_seq=358", "images/icon.png"],
     ["사이버 캠퍼스", "http://cyber.gachon.ac.kr/", "images/icon.png"],
     ["Wind", "https://wind.gachon.ac.kr/", "https://wind.gachon.ac.kr/attachment/view/134/favicon.ico"],
