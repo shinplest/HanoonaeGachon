@@ -47,7 +47,7 @@ $(document).ready(function () {
         Pages = JSON.parse(localStorage.getItem("Pages"));
     }
     //현재 배열을 제대로 읽어오는지 확인하는 코드
-    console.log(Pages);
+    // console.log(Pages);
     //읽어온 페이지 길이만큼 읽어주면서 하나씩 만들어서 어펜드. 
     appendPages();
     //읽어온 페이지에 대체 그림 넣어줌
@@ -103,7 +103,8 @@ function createItem() {
         inputName = prompt("추가할 페이지의 이름은?", tabdata.title);
         inputName = inputName.substr(0, 20);
         if (inputName == null) return;
-        console.log(tabdata.favIconUrl);
+        // favicon url을 잘가져오는지 확인하는 코드
+        // console.log(tabdata.favIconUrl);
         $(createBox(tabdata.favIconUrl))
             .appendTo("#pageBoxWrap")
             .find('a').prop("href", "http://" + inputAddress)
@@ -234,14 +235,12 @@ function appendGachonPages() {
     for (var i = 0; i < gachonPages.length; i++) {
         var pushPage = new Page(gachonPages[i][0], gachonPages[i][1], gachonPages[i][2]);
         Pages.push(pushPage);
-        console.log("실행");
     }
 }
 
 
 function getTabData(callback) {
     chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
-        console.log(tabs[0]);
         callback(tabs[0]);
     });
 }
