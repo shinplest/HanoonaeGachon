@@ -2,7 +2,7 @@
     "manifest_version": 2,
     
     "name": "한눈에 가천",
-    "version": "1.1.1",
+    "version": "1.2",
     "description": "가천대생이 필요한 모든 웹사이트를 모았습니다.",
    
     "browser_action": {
