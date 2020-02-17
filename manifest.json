@@ -1,17 +1,18 @@
 {
     "manifest_version": 2,
-    
+
     "name": "한눈에 가천",
-    "version": "1.2",
+    "version": "2.0",
     "description": "가천대생이 필요한 모든 웹사이트를 모았습니다.",
-   
+
     "browser_action": {
         "default_popup": "popup.html",
-        "default_icon": "images/icon.png" 
+        "default_icon": "images/icon.png"
     },
 
-    "permissions": [ 
+    "permissions": [
+        "storage",
         "tabs",
         "chrome://favicon/"
     ]
-  }
+}
